@@ -10,7 +10,7 @@ public class TestController {
 	
 	@GetMapping("")
 	public String helloWorld() {
-		String hd = "내이름은 서현덕 맞을껄";
+		String hd = "내이름은 서현덕 맞을껄 아마";
 		return hd;
 	}
 }
