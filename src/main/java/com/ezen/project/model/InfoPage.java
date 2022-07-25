@@ -13,11 +13,11 @@ import lombok.Data;
 public class InfoPage {
 
 	
-	private int page_num;
-	private String info_title;
+	private int pageNum;
+	private String infoTitle;
 	private String summary;
 	private String contents;
-	private Date w_date;
-	private Date u_date;
+	private Date wDate;
+	private Date uDate;
 	
 }

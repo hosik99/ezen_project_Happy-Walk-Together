@@ -24,7 +24,7 @@ public class Board {
 	private String title;
 	private String contents;
 	private String author;
-	private Date wdate;
-	private String fpath;
+	private Date wDate;
+	private String fPath;
 	
 }

@@ -10,11 +10,15 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name="login")
+@NoArgsConstructor
+@AllArgsConstructor
 @Component
 public class WalkTUser {
 
@@ -25,7 +29,5 @@ public class WalkTUser {
 			
 	private String id;
 	private String pw;
-
-	public WalkTUser() {}
 	
 }

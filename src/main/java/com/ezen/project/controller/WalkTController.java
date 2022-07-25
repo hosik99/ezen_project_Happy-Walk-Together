@@ -79,5 +79,4 @@ public class WalkTController {
 		return map;
 	}
 
-	
 }

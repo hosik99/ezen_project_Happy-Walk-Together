@@ -6,12 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="tb_admin")
 public class WalkTAdmin {
 	// ID primary key
@@ -21,6 +23,4 @@ public class WalkTAdmin {
 		
 		private String ad_id;
 		private String ad_pw;
-		
-public WalkTAdmin() {}
 }
