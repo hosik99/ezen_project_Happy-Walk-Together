@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>메인 화면</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+$(function(){
+	$.ajax({	//Json :Javascript Object Notation{'key':'value','key2':'var2',.....}
+		url:'list_detail', //서버의 유저 //전송 속성
+		method:'post', //보낸다 //전송 속성
+		cache:false, //전송 속성
+		dataType:'json', //응답 데이터 json 문자열 형식
+		//주로 text,json,html,xml 서버
+		success:function(res){
+			if (res.bookey == false) {
+				alert("로그인 후에 사용하실수 있습니다.");
+				location.href="login_form";
+			}
+		},
+		error:function(xhr,status,err){
+			alert(err);
+		} //xhr 연결관련 status 상태 번호 err 메세지
+		
+	});
+});
+function logout()
+{
+	if(!confirm('정말로 로그아웃하시겠습니까?'))return; //로그아웃 안하겠다면 
+	$.ajax({	//Json :Javascript Object Notation{'key':'value','key2':'var2',.....}
+		url:'logout', //서버의 유저 //전송 속성
+		method:'post', //보낸다 //전송 속성
+		cache:false, //전송 속성
+		dataType:'text', //응답 데이터 json 문자열 형식
+		//주로 text,json,html,xml 서버
+		success:function(res){
+			alert("로그아웃 하였습니다.");
+			location.href="login_form";
+		},
+		error:function(xhr,status,err){
+			alert(err);
+		} //xhr 연결관련 status 상태 번호 err 메세지
+		
+	});
+}
+
+
+</script>
+</head>
+<body>
+<span th:text="${uid}+'님 환영합니다.'"></span>
+<a th:text="로그아웃"  onclick="logout()"></a>
+</body>
+</html>
