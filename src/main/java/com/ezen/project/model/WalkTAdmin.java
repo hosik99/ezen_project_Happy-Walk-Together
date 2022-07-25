@@ -21,6 +21,6 @@ public class WalkTAdmin {
 		@GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
 		private int num;
 		
-		private String ad_id;
-		private String ad_pw;
+		private String adminId;
+		private String adminPw;
 }
