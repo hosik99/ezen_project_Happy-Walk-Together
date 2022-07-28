@@ -49,6 +49,6 @@ function logout()
 </head>
 <body>
 <span th:text="${uid}+'님 환영합니다.'"></span>
-<a th:text="로그아웃"  onclick="logout()"></a>
+<a th:text="로그아웃"  th:href="@{''}" onclick="logout()"></a>
 </body>
 </html>

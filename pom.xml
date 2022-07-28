@@ -132,9 +132,7 @@
            <artifactId>aspectjweaver</artifactId>
            <scope>compile</scope>
         </dependency>
-        
-   
-        
+
 	</dependencies>
 
 	<build>
