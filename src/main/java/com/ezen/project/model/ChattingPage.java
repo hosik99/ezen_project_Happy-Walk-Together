@@ -22,8 +22,10 @@ public class ChattingPage {
 	
 	@Column(name="chat_title")
 	private String chatTitle;
+	
 	@Column(name="chat_date")
 	private Date chatDate;
+	
 	@Column(name="chat_author")
 	private String chatAuthor;
 }
