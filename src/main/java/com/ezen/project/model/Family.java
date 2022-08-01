@@ -23,9 +23,10 @@ public class Family {
 	private Long familyId;
 	
 	@Column(name="member")
-	private String member;
+	private Member member;
+	
 	@Column(name="pet")
-	private String pet;
+	private Pet pet;
 	
 	@Column(name="del_phone_num, nullable")
 	private String delegatePhoneNumber; //대표 번호
