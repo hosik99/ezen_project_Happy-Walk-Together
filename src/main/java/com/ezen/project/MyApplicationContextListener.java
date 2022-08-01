@@ -1,3 +1,4 @@
+/*
 package com.ezen.project;
 
 import javax.servlet.ServletContext;
@@ -45,3 +46,4 @@ public class MyApplicationContextListener implements ApplicationListener
       }
    }
 }
+*/

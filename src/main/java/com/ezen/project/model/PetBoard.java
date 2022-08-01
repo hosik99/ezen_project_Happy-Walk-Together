@@ -18,7 +18,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="board")
-public class Board {
+public class PetBoard {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
