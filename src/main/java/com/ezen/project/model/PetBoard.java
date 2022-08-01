@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
 
 import org.springframework.stereotype.Component;
 
@@ -24,10 +26,17 @@ public class PetBoard {
 	@GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
 	private Long pBoardId;
 	
+	@NotBlank
 	private String title;
+	
 	private String contents;
+	
+	@NotBlank
 	private String author;
+	
+	@PastOrPresent
 	private Date wDate;
+	
 	private String fPath;
 	
 }

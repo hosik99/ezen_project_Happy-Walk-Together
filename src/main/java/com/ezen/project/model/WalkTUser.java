@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class WalkTUser {
 
 	// ID primary key
+	// This is Test Entity
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
 	private int num;

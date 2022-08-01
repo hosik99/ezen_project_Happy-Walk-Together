@@ -1,5 +1,7 @@
 package com.ezen.project.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,10 +25,11 @@ public class Family {
 	private Long familyId;
 	
 	@Column(name="member")
-	private WalkTUser walkTUser;
+	private WalkTUser walkTUser; // Test Code
+	// private List<Member> member;
 	
 	@Column(name="pet")
-	private Pet pet;
+	private List<Pet> pet;
 	
 	@Column(name="del_phone_num, nullable")
 	private String delegatePhoneNumber; //대표 번호

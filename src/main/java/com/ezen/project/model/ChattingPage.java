@@ -17,12 +17,13 @@ public class ChattingPage {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="chat_id", insertable=false, nullable = false)
+	@Column(name="chat_num", insertable=false, nullable = false)
 	private Long chatNum;
 	
-	private String hatTitle;
-	
+	@Column(name="chat_title")
+	private String chatTitle;
+	@Column(name="chat_date")
 	private Date chatDate;
-	
+	@Column(name="chat_author")
 	private String chatAuthor;
 }
