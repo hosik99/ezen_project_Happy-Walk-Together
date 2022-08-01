@@ -12,7 +12,6 @@ import lombok.Data;
 @Component
 public class InfoPage {
 
-	
 	private int pageNum;
 	private String infoTitle;
 	private String summary;

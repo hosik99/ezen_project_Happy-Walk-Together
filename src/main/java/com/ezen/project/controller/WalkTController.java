@@ -67,6 +67,7 @@ public class WalkTController {
 	{
 		       return "thymeleaf/mainInfoPage/infoPageList";
 	}
+<<<<<<< HEAD
 	//펫 공지사항 상세보기 화면 
 	@GetMapping("/infoPageDetail")
 	public String infoPageDetail(@RequestParam("num")int num)
@@ -120,4 +121,6 @@ public class WalkTController {
 
 	
 	
+=======
+>>>>>>> branch 'master' of https://github.com/Lamoris/ezen_project01.git
 }
