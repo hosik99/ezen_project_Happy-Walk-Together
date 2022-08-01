@@ -78,5 +78,4 @@ public class WalkTController {
 		map.put("bookey", true);
 		return map;
 	}
-
 }
