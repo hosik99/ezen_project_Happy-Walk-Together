@@ -23,7 +23,7 @@ public class Family {
 	private Long familyId;
 	
 	@Column(name="member")
-	private Member member;
+	private WalkTUser walkTUser;
 	
 	@Column(name="pet")
 	private Pet pet;

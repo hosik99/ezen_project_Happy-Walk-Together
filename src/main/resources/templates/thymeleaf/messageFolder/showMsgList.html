@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>쪽지함</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</head>
+<body>
+ 	
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col"></th>
+		      <th scope="col">보낸사람</th>
+		      <th scope="col">제목</th>
+		      <th scope="col">받은 시간</th>
+		      <th scope="col"></th>
+		    </tr>
+		  </thead>
+		 
+			  <tbody th:each="list : ${list}" >
+			  	<tr>
+			  	<th scope="row" th:text="${listStat.count}" ></th>
+			      <td th:text="${list.sender}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
+			      <td th:text="${list.title}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
+			      <td th:text="${list.writeDate}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
+			      <td>
+			      	[[${list.num}]]
+			      	<input type="button" th:value="삭제" th:onclick="location.href='/msg/deleteMsg/'+[[${list.num}]]">
+			   	  </td>
+			    </tr>
+			  </tbody>
+			 
+		</table>
+	
+</body>
+</html>

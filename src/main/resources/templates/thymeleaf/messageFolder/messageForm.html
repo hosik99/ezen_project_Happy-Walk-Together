@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>쪽지 보내기</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function messageinfo(){
+			var data = $('#messageinfo').serialize();
+			$.ajax({
+				url : '/msg/addMsgInfo',
+				method:'post',
+				cache:false,
+				data:data,
+				dataType:'text',
+				success:function(res){
+					if(res=='true'){
+						alert('전송되었습니다.');
+						location.href="/msg/getMsgByReceiver";
+					}else{
+						alert('전송에 실패했습니다.');
+					}
+				},
+				error:function(xhr,status,err){
+					alert('전송에 실패했습니다.');
+				}
+			});
+			return false;
+		}
+	</script>
+</head>
+<body>
+	<form id="messageinfo" action="/msg/addMsgInfo" method="post" th:object="${msg}">
+		<div class="mb-3">
+		  <label for="exampleFormControlInput1" class="form-label">수신자</label>
+		  <input type="text" class="form-control" name="receiver" th:field="*{receiver}">
+		</div>
+		<div class="mb-3">
+		  <label for="exampleFormControlInput1" class="form-label">제목</label>
+		  <input type="text" class="form-control" name="title" th:field="*{title}">
+		</div>
+		<div class="mb-3">
+		  <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+		  <textarea class="form-control" rows="3" name="contents" th:field="*{contents}"></textarea>
+		</div>
+		<div>
+			<button type="button" class="btn btn-outline-dark" onclick="messageinfo()">보내기</button>
+			<button type="button" class="btn btn-outline-dark">취소</button>
+		</div>
+	</form>
+</body>
+</html>
