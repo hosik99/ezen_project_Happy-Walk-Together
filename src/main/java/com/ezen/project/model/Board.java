@@ -22,7 +22,7 @@ public class Board {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
-	private Long num;
+	private Long pBoardId;
 	
 	private String title;
 	private String contents;

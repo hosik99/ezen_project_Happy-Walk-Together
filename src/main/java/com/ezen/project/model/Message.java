@@ -33,5 +33,5 @@ public class Message {
 	
 	private Date writeDate;
 	
-	private int readed;
+	private Integer readed;
 }

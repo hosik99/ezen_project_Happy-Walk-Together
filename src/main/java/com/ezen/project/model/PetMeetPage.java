@@ -1,5 +1,7 @@
 package com.ezen.project.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,27 +16,18 @@ import lombok.Data;
 @Component
 @Data
 @Entity
-@Table(name="member")
-public class Member {
+@Table(name="member_family")
+public class PetMeetPage {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="member_id", insertable=false, nullable = false)
-	private Long memberId; //PK
+	@Column(name="meat_page_id", insertable=false, nullable = false)
+	private Long meetNum;
 	
-	private String memberEmail;
-	
-	private String memberPw;
-	
-	private String memberName;
-	
-	private String address;
-	
-	private String birthday;
-	
-	private String gender;
-	
-	private String phoneNumber;
-	
-	private Family familyId; // FK
+	private String meetTitle;
+	private String meetContents;
+	private String meetAuthor;
+
+	private Date meetWdate;
+	private String meetLocation;
 }

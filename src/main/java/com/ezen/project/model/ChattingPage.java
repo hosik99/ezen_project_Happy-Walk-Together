@@ -2,10 +2,10 @@ package com.ezen.project.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -13,21 +13,16 @@ import lombok.Data;
 
 @Data
 @Component
-@Table(name="info_board")
-public class InfoPage {
+public class ChattingPage {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private int pageNum;
+	@Column(name="chat_id", insertable=false, nullable = false)
+	private Long chatNum;
 	
-	private String infoTitle;
+	private String hatTitle;
 	
-	private String summary;
+	private Date chatDate;
 	
-	private String contents;
-	
-	private Date wDate;
-	
-	private Date uDate;
-	
+	private String chatAuthor;
 }
