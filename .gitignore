@@ -16,8 +16,6 @@ local.properties
 
 ### Eclipse Properties###
 application.properties
-### Eclipse Properties###
-pom.xml
 
 # External tool builders
 .externalToolBuilders/
