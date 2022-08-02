@@ -1,5 +1,6 @@
 package com.ezen.project.service;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -18,8 +19,13 @@ public class SignUpValidationService {
 				FieldError fieldError = (FieldError) objectError;
 				String errMessage = objectError.getDefaultMessage();
 				
-				log.info("fieldError : "+fieldError.getField());
+				//log.info("fieldError : "+fieldError.getField());
+				//log.info("errMsg : "+errMessage);
+				
+				stringBuilder.append("field : " + fieldError.getField());
+				stringBuilder.append("message : "+ errMessage);
 			});
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(stringBuilder.toString());
 		}
 		return null;
 	}
