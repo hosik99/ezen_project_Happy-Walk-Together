@@ -55,7 +55,7 @@ public class MessageController {
 	public boolean addMsgInfo(Message msg)
 	{	
 		System.out.println(msg.toString());
-		if(msg.getReceiver()=="" | msg.getTitle() =="" | msg.getContents()=="") {
+		if(msg.getReceiver()=="" | msg.getMsgTitle() =="" | msg.getMsgContents()=="") {
 			return false;
 		}
 		msg.setSender(id);

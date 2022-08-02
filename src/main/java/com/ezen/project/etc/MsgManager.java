@@ -28,17 +28,17 @@ public class MsgManager {
 	}
 	
 	public boolean addMsgInfo(Message msg) {
-		msg.setWriteDate(java.sql.Date.valueOf(LocalDate.now()));
+		msg.setMsgWdate(java.sql.Date.valueOf(LocalDate.now()));
 		msg.setReaded(0);
-		msg.setNum(1);
+		msg.setMsgNum((long) 1);
 		Object obj = this.sctx.getAttribute(key);
 		if(obj!=null) 
 		{
 			List<Message> list = (List<Message>) obj;
-			int lastNum;
+			Long lastNum;
 			if(list.size()!=0) {
-				lastNum = list.get(list.size()-1).getNum();
-				msg.setNum(lastNum+1);
+				lastNum = list.get(list.size()-1).getMsgNum();
+				msg.setMsgNum(lastNum+1);
 			}
 			list.add(msg);
 			return true;
@@ -75,7 +75,7 @@ public class MsgManager {
 		if(list==null) return null;
 		for(int i=0;i<list.size();i++) {
 			Message msg = list.get(i);
-			if(userNum==msg.getNum()) {
+			if(userNum==msg.getMsgNum()) {
 				msg.setReaded(1);
 				return msg;
 			}
@@ -87,7 +87,7 @@ public class MsgManager {
 		List<Message> list = getList();
 		int originListSize = list.size();
 		for(int j=0;j<list.size();j++) {
-			if(msgNum==list.get(j).getNum()) {
+			if(msgNum==list.get(j).getMsgNum()) {
 				list.remove(j);
 			}
 		}
