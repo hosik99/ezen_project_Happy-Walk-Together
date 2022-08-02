@@ -2,6 +2,7 @@ package com.ezen.project.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,24 +20,29 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="board")
-public class PetBoard {
+@Table(name="mate_search_board")
+public class MateSearchBoard {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO) // JPA에서 자동증가 지원
-	private Long pBoardId;
+	private Long mateBoardNum;
 	
 	@NotBlank
-	private String title;
+	@Column(name="mate_title")
+	private String mateTitle;
 	
-	private String contents;
+	@Column(name="mate_contents")
+	private String mateContents;
 	
 	@NotBlank
-	private String author;
+	@Column(name="mate_author")
+	private String mateAuthor;
 	
 	@PastOrPresent
-	private Date wDate;
+	@Column(name="mate_wdate")
+	private Date mateWdate;
 	
-	private String fPath;
+	@Column(name="mate_location")
+	private String mateLocation;
 	
 }
