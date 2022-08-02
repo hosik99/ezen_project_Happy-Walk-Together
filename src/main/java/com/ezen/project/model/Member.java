@@ -2,6 +2,7 @@ package com.ezen.project.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -62,7 +63,7 @@ public class Member {
 	@Column(name = "member_phone_number")
 	private String memberPhoneNumber;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "familyId")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="family_id", referencedColumnName="familyId")
 	private Family familyId;; // FK
 }

@@ -1,5 +1,6 @@
 package com.ezen.project.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,7 +38,7 @@ public class Pet {
 	@Column(name="pet_size")
 	private String petSize; //사이즈(대형견 중형견 소형견)
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "familyId")
-	private Family familyId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="family_id", referencedColumnName="familyId")
+	private Family family;
 }
