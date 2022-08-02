@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.stereotype.Component;
 
@@ -52,6 +53,7 @@ public class Member {
 	private String gender;
 	
 	@NotBlank
+	@Pattern(regexp="^\\d{3}-\\d{3,4}-\\d{4}$")
 	@Column(name="member_phone_number")
 	private String memberPhoneNumber;
 	
