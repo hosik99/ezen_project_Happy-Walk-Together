@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body align=center>
+<h3>멤버 폼입니다.</h3>
+<form action ="" method="post">
+
+
+이메일 : <input type="text" name="uid" id="uid" value=""> <p/>
+비밀번호 : <input type="password" name="memberPw" id="memberPw"><p/>
+이름 : <input type="text" name="memberName" id="memberName"> <p/>
+주소 : <input type="text" name="address" id="address"> <p/>
+생일 : <input type="text" name="birthday" id="birthday"> <p/>
+나이 : <input type="text" name="memberAge" id="memberAge"> <p/>
+<fieldset name="gender" id="gender">
+    <legend>성별 : </legend>
+<div> 
+<input type="radio" name="man" id="man">
+<label for="dewey">남성</label></div>  
+<div>  
+<input type="radio" name="woman" id="woman">
+<label for="dewey">여성</label></div>
+</fieldset>
+핸드폰번호 : <input type="text" name="member_phone_number" id="member_phone_number"> <p/>
+
+특별 : <input type="text" name="family_id" id="family_id" th:value="${id}" readonly="readonly"> <p/>
+</form>
+
+</body>
+</html>

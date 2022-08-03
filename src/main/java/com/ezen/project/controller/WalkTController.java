@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.ezen.project.service.WalkTService;
+import com.ezen.project.service.WalkTLoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,8 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/pet")
 public class WalkTController {
 
-	@Autowired
-	private WalkTService svc;
 	
 	@Autowired
 	private HttpSession session;
@@ -36,8 +34,9 @@ public class WalkTController {
 	@GetMapping("/introduceIndex")
     public String introduceIndex()
     {	
-       return "thymeleaf/introduceIndex";
+       return "thymeleaf/introduce/index";
     }
+		
 	//메인 화면 
 	@GetMapping("/mainIndex")
 	public String mainIndex()
