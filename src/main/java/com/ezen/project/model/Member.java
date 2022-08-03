@@ -19,17 +19,21 @@ import javax.validation.constraints.Pattern;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Component
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "member")
 public class Member {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "member_id", insertable = false, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "MEMBER_ID")
 	private Long memberId; // PK
 
 	@Email
@@ -63,7 +67,7 @@ public class Member {
 	@Column(name = "member_phone_number")
 	private String memberPhoneNumber;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="family_id", referencedColumnName="familyId")
-	private Family familyId;; // FK
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="family_id")
+	private Family family; // FK
 }
