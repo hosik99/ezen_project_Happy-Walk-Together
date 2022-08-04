@@ -6,11 +6,11 @@
 </head>
 <body align=center>
 <h3>멤버 폼입니다.</h3>
-<form action ="" method="post">
+<form action ="member_form" method="post">
 
 
-이메일 : <input type="text" name="uid" id="uid" value=""> <p/>
-비밀번호 : <input type="password" name="memberPw" id="memberPw"><p/>
+이메일 : <input type="text" name="memberEmail" id="memberEmail" value=""> <p/>
+비밀번호 : <input type="text" name="memberPw" id="memberPw"><p/>
 이름 : <input type="text" name="memberName" id="memberName"> <p/>
 주소 : <input type="text" name="address" id="address"> <p/>
 생일 : <input type="text" name="birthday" id="birthday"> <p/>
@@ -24,9 +24,10 @@
 <input type="radio" name="woman" id="woman">
 <label for="dewey">여성</label></div>
 </fieldset>
-핸드폰번호 : <input type="text" name="member_phone_number" id="member_phone_number"> <p/>
+핸드폰번호 : <input type="text" name="memberPhoneNumber" id="memberPhoneNumber"> <p/>
 
-특별 : <input type="text" name="family_id" id="family_id" th:value="${id}" readonly="readonly"> <p/>
+<input type="submit" value="회원가입">
+<input type="reset" value="취소">
 </form>
 
 </body>

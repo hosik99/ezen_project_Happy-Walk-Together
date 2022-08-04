@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ezen.project.Repository.SignUpRepository;
 import com.ezen.project.model.Family;
+import com.ezen.project.model.Member;
 import com.ezen.project.service.WalkTLoginService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,9 +32,8 @@ public class WalkTLoginController {
 
 		@Autowired
 		private WalkTLoginService svc;
+				
 		
-	
-	
 		@Autowired
 		private HttpSession session;
 	
@@ -51,32 +51,50 @@ public class WalkTLoginController {
 		}
 		
 		//familySignUpForm POST 형식으로 보낸다.
-		@PostMapping("/form")
-		public String mailCertificationForm(@RequestParam("del_email")String del_email,
-											@RequestParam("family_pwd")String family_pwd,
-											HttpSession session) {
+		@PostMapping("/family_form")
+		public String mailCertificationForm(@RequestParam("delEmail")String delEmail,
+											@RequestParam("familyPwd")String familyPwd,
+											HttpSession session, Model model) {
 			
-			rendom = new Random();	
-			int rd = (Integer)rendom.nextInt(100000);
-			cerNum = rd;
-			svc.sendMineMessage(del_email,family_pwd,rd);	
+			svc.sendMineMessage(delEmail,familyPwd);	
 			return "thymeleaf/login/mailCertificationForm";	
 		}
 		//회원 가입 화면 
-		@PostMapping("/form_complate/{del_email}/{family_pwd}/{rd}")
-		public String familySignUpForm(@PathVariable("del_email")String del_email,
-				@PathVariable("family_pwd")String family_pwd,
-				@PathVariable("rd")int rd
-				,Model model
-				,HttpSession session){
-			if (rd == cerNum) {
-				//첫 패밀리
-				svc.familySignUpForm(del_email,family_pwd);				
+		@PostMapping("/form_complate")
+		public String familySignUpForm(@RequestParam("delEmail")String delEmail,
+				@RequestParam("familyPwd")String familyPwd
+				,Model model){
+			
+				//검증 아이디 값이 중복일경우
+			
+			try {
+					Family familyEmail = svc.findByDelAll(delEmail);
+					session.setAttribute("email_id", familyEmail);
+					return "thymeleaf/login/memberSignUpForm";
+			} catch (Exception e) {
+				svc.familySignUpForm(delEmail, familyPwd);
 				return "thymeleaf/login/memberSignUpForm";
 			}
-			return null;  
+
 		}	
-		
+		@PostMapping("/member_form")
+		public String memberForm(Member member,Model model) {
+			System.out.println(member.getMemberAge());
+			System.out.println(member.getMemberEmail());
+			System.out.println(member.getMemberName());
+			System.out.println(member.getMemberPhoneNumber());
+			System.out.println(member.getMemberPw());
+			
+			System.out.println("get:"+session.getAttribute("email_id"));
+			Family family = (Family) session.getAttribute("email_id");
+			member.setFamily(family);
+			System.out.println("세션 : "+member.getFamily());
+			
+			
+			member.setMemberAge((Integer)(member.getMemberAge()));
+			svc.memberSignUpForm(member);	
+			return "thymeleaf/mainIndex";	
+		}
 		
 		//아이디 찾기 화면 
 		@GetMapping("/lost_id_find_form")

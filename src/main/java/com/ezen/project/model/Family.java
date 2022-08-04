@@ -23,7 +23,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@Component
+
 @Data
 @Entity
 @NoArgsConstructor

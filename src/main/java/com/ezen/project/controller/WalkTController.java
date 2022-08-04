@@ -41,7 +41,7 @@ public class WalkTController {
 	@GetMapping("/mainIndex")
 	public String mainIndex()
 	{
-	       return "thymeleaf/mainIndex";
+	       return "thymeleaf/MainPage/index";
 	}
 	
 		
