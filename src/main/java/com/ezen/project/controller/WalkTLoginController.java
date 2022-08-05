@@ -1,6 +1,7 @@
 package com.ezen.project.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ezen.project.Repository.SignUpRepository;
 import com.ezen.project.model.Family;
 import com.ezen.project.model.Member;
 import com.ezen.project.service.WalkTLoginService;
@@ -27,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/pet_login")
 public class WalkTLoginController {
 		
-		private int cerNum;
-		private Random rendom;	
 
 		@Autowired
 		private WalkTLoginService svc;
@@ -36,18 +34,42 @@ public class WalkTLoginController {
 		
 		@Autowired
 		private HttpSession session;
-	
-		//familySignUpForm x 로그인 화면 화면 
-		@GetMapping("/family_sign_up_form")
-		public String familySignInForm()
+	 
+		@GetMapping("/introduceIndex")
+	    public String introduceIndex(Model model)
+	    {	
+	       return "thymeleaf/introduce/index";
+	    }
+		
+		@GetMapping("/member_sign_in_form")
+		public String MemberSignInForm()
 		{
-			       return "thymeleaf/login/familySignUpForm";
+			       return "thymeleaf/login/MemberLoginForm";
 		}
-		//familyLoginForm o 로그인 화면 화면 
-		@GetMapping("/family_login_form")
+		
+		@PostMapping("/member_sign_in_detail")
+		public String MemberSignIn_detail
+		(@RequestParam("memberEmail")String memberEmail,
+		@RequestParam("memberPw")String memberPw)
+		{
+		for (int i = 0; i < svc.getList().size(); i++) {
+			if (svc.getList().get(i).getMemberEmail().equals(memberEmail)&&
+					svc.getList().get(i).getMemberPw().equals(memberPw)) {
+					System.out.println("검증 입장 MemberSignIn");					
+					session.setAttribute("memberEmail", memberEmail);					
+					return "thymeleaf/main/index";				
+				}
+		}
+			
+			 return "thymeleaf/login/MemberLoginForm";
+		}
+		
+				
+				
+		@GetMapping("/family_sign_up_form")
 		public String familyLoginForm()
 		{
-				   return "thymeleaf/login/familyLoginForm";
+				   return "thymeleaf/login/familySignUpForm";
 		}
 		
 		//familySignUpForm POST 형식으로 보낸다.
@@ -65,36 +87,41 @@ public class WalkTLoginController {
 				@RequestParam("familyPwd")String familyPwd
 				,Model model){
 			
-				//검증 아이디 값이 중복일경우
-			
-			try {
-					Family familyEmail = svc.findByDelAll(delEmail);
-					session.setAttribute("email_id", familyEmail);
+			try {	
+					Long email_id=svc.findByDelEmailId(delEmail);
+					session.setAttribute("email_id", email_id);
 					return "thymeleaf/login/memberSignUpForm";
 			} catch (Exception e) {
+				//값이 없을경우 오류가 터졌을때
 				svc.familySignUpForm(delEmail, familyPwd);
 				return "thymeleaf/login/memberSignUpForm";
 			}
-
 		}	
 		@PostMapping("/member_form")
-		public String memberForm(Member member,Model model) {
-			System.out.println(member.getMemberAge());
-			System.out.println(member.getMemberEmail());
-			System.out.println(member.getMemberName());
-			System.out.println(member.getMemberPhoneNumber());
-			System.out.println(member.getMemberPw());
-			
-			System.out.println("get:"+session.getAttribute("email_id"));
-			Family family = (Family) session.getAttribute("email_id");
-			member.setFamily(family);
-			System.out.println("세션 : "+member.getFamily());
-			
-			
+		@ResponseBody
+		public Map<String, Boolean> memberForm(Member member,Model model) {
+			System.out.println("멤버폼 입장 memberForm");
+			Map<String, Boolean> map = new HashMap<>();
+			for (int i = 0; i < svc.getList().size(); i++) {
+			if (svc.getList().get(i).getMemberEmail().equals(member.getMemberEmail())) {
+				System.out.println("if false 입장");
+				map.put("emailBoolean", false);
+				return map;
+			}
+			}
+			System.out.println("이메일 아이디 입장 "+ session.getAttribute("email_id"));
+			Long email_id =(Long) session.getAttribute("email_id");
 			member.setMemberAge((Integer)(member.getMemberAge()));
-			svc.memberSignUpForm(member);	
-			return "thymeleaf/mainIndex";	
+			map.put("emailBoolean", true);
+			svc.memberSignUpForm(member,email_id);	
+			return map;	
 		}
+		@GetMapping("/member_main")
+		public String memberMain()
+		{ 
+			return "thymeleaf/login/MemberLoginForm";
+		}
+		
 		
 		//아이디 찾기 화면 
 		@GetMapping("/lost_id_find_form")

@@ -13,6 +13,12 @@
 <script src="css/style.css" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
 <link rel="stylesheet"  href="css/style.css"  />
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet" />
+<link href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" rel="stylesheet" />
+
 </head>
 <body>
 <p/><p/><p/><p/><p/><p/><p/>
@@ -21,24 +27,24 @@
    <div class="container-fluid d-flex justify-content-center align-items-center h-200">
       
       <div class="card p-3 text-center py-4">
-          <h4>HappySign 패밀리 회원가입 인증 입니다.</h4>
+          <h4>HappySign 멤버용 로그인</h4>
           <div><p>	
-              <span>로그인 하시겠습니까?</span>
-              <a href="member_sign_in_form" class="text-decoration-none">Sign In</a>
+              <span>아직 회원가입 하지 않으셨나요?</span>
+              <a href="family_sign_up_form" class="text-decoration-none">Sign Up</a>
           </div><p>
-          <form action="family_form" method="post">
+          <form action="member_sign_in_detail" method="post">
           
           <div class="mt-3 px-3">
-              <input class="form-control" placeholder="Family Email name"  type="email" name="delEmail" id="delEmail" required="required" >
+              <input class="form-control" placeholder="Member Email name"  type="email" name="memberEmail" id="memberEmail" required="required" >
           </div>
   
           <div class="mt-3 px-3">
-              <input class="form-control" placeholder="Family Email Password"  type="password" name="familyPwd" id="familyPwd" required="required">
+              <input class="form-control" placeholder="Member Email Password"  type="password" name="memberPw" id="memberPw" required="required">
           </div>
           
           <div class="mt-3 d-grid px-3">
               <button class="btn btn-primary btn-block btn-signup text-uppercase" type="submit">
-                  <span>인증하기</span>
+                  <span>SignIn</span>
                   
               </button>
           </div>
@@ -56,6 +62,13 @@
        
    </div> 
 </div>
+
+
+
+
+
+
+
 
 
 </body>

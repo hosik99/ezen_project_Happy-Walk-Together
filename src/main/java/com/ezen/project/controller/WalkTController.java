@@ -30,18 +30,19 @@ public class WalkTController {
 	@Autowired
 	private HttpSession session;
 	
-	//소개 화면 
+	//소개 화면 *
 	@GetMapping("/introduceIndex")
-    public String introduceIndex()
+    public String introduceIndex(Model model)
     {	
+	model.addAttribute("img_feature1", "../../introduce/image/feature1.jpg");
        return "thymeleaf/introduce/index";
     }
 		
-	//메인 화면 
+	//메인 화면 *
 	@GetMapping("/mainIndex")
 	public String mainIndex()
 	{
-	       return "thymeleaf/MainPage/index";
+	       return "thymeleaf/main/index";
 	}
 	
 		

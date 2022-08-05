@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -15,9 +15,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
          <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
    		 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
+    		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        
+        
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
     </head>
@@ -26,15 +27,15 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container px-5">
-                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <a class="navbar-brand" href="#!">HappyWalkTogether</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-                        <li class="nav-item"><a class="nav-link"  data-toggle="modal" data-target=".bd-example-modal-lg">회원가입</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">HappyWalkTogether 메인화면</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">관하여</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">문의하기</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">서비스</a></li>
+                        <li class="nav-item"><a class="nav-link" href=""  data-toggle="modal" data-target=".bd-example-modal-lg">스타트 업</a></li>
                         
                        <!-- Large modal -->
                     </ul>
@@ -44,58 +45,192 @@
 				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   					<div class="modal-dialog modal-lg">
     					<div class="modal-content">
-     						 이미 가입하신 고객이 있습니까?
-     						 <a class="nav-link" href="/pet_login/family_login_form">네 이미 페밀리 가입을 하였습니다.</a>
-     						 <a class="nav-link" href="/pet_login/family_sign_up_form">아니요 아직 페밀리 가입을 하지 않았습니다.</a>
+    					
+  <div class="card">
+  <h5 class="card-header">회원가입</h5>
+  <div class="card-body">
+    <h5 class="card-title">상세정보</h5>
+    <p class="card-text">이미 가입하신 고객이 있습니까?</p>
+     <a class="btn btn-primary" href="/pet_login/member_sign_in_form">네 이미 페밀리 가입을 하였습니다.</a>
+     <a class="btn btn-primary" href="/pet_login/family_sign_up_form">아니요 아직 페밀리 가입을 하지 않았습니다.</a>
+  </div>
+</div>	
    						 </div>
   					</div>
 				</div>
-
         </nav>
         <!-- Header-->
-        <header class="bg-dark py-5">
+        <header class="p-3 mb-2 bg-info text-white">
+        <img class="w-100 p-3" style="background-color: #eee;" src="../image/Bernese-mountain-dog-grass.webp">
             <div class="container px-5">
                 <div class="row gx-5 justify-content-center">
                     <div class="col-lg-6">
                         <div class="text-center my-5">
-                            <h1 class="display-5 fw-bolder text-white mb-2">Present your business in a whole new way</h1>
-                            <p class="lead text-white-50 mb-4">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit!</p>
+                            <h1 class="display-5 fw-bolder text-white mb-2">도그 워킹을 위한 전체 플랫폼으로써 여러분을 환영합니다.</h1>
+                            <p class="lead text-white-50 mb-4">이는 아이들에게 반려동물을 기르도록 하는 가장 좋은 이유이다. 아이들은 살아있는 다른 생명체를 돌보아야 하고, 반려동물은 그들이 무엇을 하는가에 의지한다. 결과적으로 아이들은 다른 종과 어울리는 것뿐만 아니라 그들의 안녕을 위해 관심을 가지는 것도 배운다. 아이들에게 다른 동물뿐만 아니라 사람과도 공감할 수 있게 가르쳐준다.</p>
                             <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                                <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
-                                <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+                                <a class="btn btn-primary btn-lg px-4 me-sm-3" data-toggle="modal" data-target=".bd-example-modal-lg">Get Started</a>
+                                <a class="btn btn-outline-light btn-lg px-4" data-toggle="modal" data-target=".bd-example-modal-lg">Learn More</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+        <p/><p/><p/><p/><p/>
+        <!-- Marketing messaging and featurettes
+      ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+
+     
+      
+
+
+      <div class="container marketing">
+        <!-- Three columns of text below the carousel -->
+        
+        <div class="row">
+        <p/><p/><p/><p/><p/>
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="../image/dog-breed-is-not-an-accurate-way-to-predict-behavior-361072-1280x720.jpg" alt="Generic placeholder image" width="140" height="140">
+            <h2>프란시스</h2>
+            <p>개는 남자의 친구라고 말하고 싶지만, 그건 너무 주류입니다. 사실 개는 단순한 가장 친한 친구 이상의 존재이기 때문입니다. 그들은 당신과 내가 우리의 가장 친한 친구나 인류 전체에 대해 그랬거나 앞으로도 그럴 것보다 훨씬 더 애정 어린 작은 영혼입니다.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="../image/5daf0b25045a3101b5415962.webp" alt="Generic placeholder image" width="140" height="140">
+            <h2>밸랜피스</h2>
+            <p>사전에서 단어의 의미를 바꿀 수 있는 직업이 있다면 '개'의 의미를 '가축 육식 포유동물'에서 '자신의 생명을 바치는 사심 없는 천사'로 바꾸는 것뿐입니다. 대가는 없지만 충분한 양의 사랑입니다.'</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div><!-- /.col-lg-4 -->
+          <div class="col-lg-4">
+            <img class="rounded-circle" src="../image/SEI_97255351.webp" alt="Generic placeholder image" width="140" height="140">
+            <h2>카르스탄</h2>
+            <p>그의 주인은 자살했고, 술의 영향으로 카자흐스탄의 카라간다 (Karaganda)시의 철도 선로에서 잠이 들었습니다. 위험의 심각성을 감지하는 개는 그 남자를 트랙에서 벗어나게하기 위해 최선을 다했습니다. 그는 밀고, 당기고, 찌르고, 그가 슈퍼 개라면 할 수있는 모든 것을했습니다. 그리고 네, 그랬습니다. 그의 노력으로 그는 성공적이었기 때문입니다. 그러나 타이밍은 멍청했다. 기차 운전사는 선로에서 개를 보았고 비상 휴식을 취했습니다. 그럼에도 불구하고, 그의 뒷발은 바퀴 밑으로 내려 갔고, 그는 세계에서 가장 사심없는 존재 중 한 명으로 그 자리에서 죽었습니다.</p>
+            <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+          </div><!-- /.col-lg-4 -->
+       
+        </div><!-- /.row -->
+
+
+        <!-- START THE FEATURETTES -->
+
+        <hr class="featurette-divider">
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">반려동물은 당신을 조건없이 사랑 <span class="text-muted">주인의 건강을 향상한다.</span></h2>
+            <p class="lead">반려동물은 당신을 조건없이 사랑하며, 좋은 때건 좋지 않을 때건 우리 곁에 있다. 반려동물을 기르면 당신의 삶의 질이 향상되고 많은 이점이 있다. 반려동물을 돌보면 큰 책임감이 생기지만, 그와 함께 생기는 이점은 그 노력을 능가한다.
+
+고양이나 개처럼 평범한 반려동물이든지 또는 이구아나처럼 이국적인 동물이든지 어떤 것이든, 모두 주인의 건강을 향상한다.
+
+반려동물과 함께 있으면 당신은 동반자가 생기고, 심지어 도움을 받는 느낌이 든다. 또한 더욱 큰 행복감을 느낀다. 무엇보다도 반려동물은 인생의 의미를 준다. 그리고 만약 당신이 반려동물을 조건없이 사랑한다면, 당신은 이 모든 이점을 더 많이 보게될 것이다</p>
+          </div>
+          
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="../image/dogs_1280p_0.jpg" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">수명을 연장시킨다 <span class="text-muted">장애를 극복하도록 돕는다</span></h2>
+            <p class="lead">
+반려견을 산책시키며 돌보는 것은 매일 더 많은 운동을 하도록 도와준다. 아니면 어항의 물을 바꾸는 것으로 당신의 마음을 활동적으로 만든다. 이러한 신체적, 정신적 운동은 당신의 몸과 생활을 활동적으로 도와준다. 그들은 또한 특정 질환이나 질병의 위험을 줄이는 데 도움을 준다.
+
+반려동물은 외상 후 스트레스와 같은 심리적 문제를 가진 사람을 돕는다. 그들은 자신의 감정을 전달하고 삶의 의미를 주는 데 도움을 준다. 심지어 병을 피하게 도와줄 수 있다. 고양이와 개는 후각이 훨씬 뛰어나서, 우리 몸속의 화학적 변화를 잘 탐지한다.
+
+심지어 어떤 개는 당뇨병 환자의 저혈당이나 고혈당의 증상을 감지하도록 훈련을 받기도 한다. 그래서 그런 문제가 악화하는 것을 예방할 수 있게 도와준다.</p>
+          </div>
+          <div class="col-md-5 order-md-1">
+            <img class="featurette-image img-fluid mx-auto" src="../image/golden-retriever-royalty-free-image-506756303-1560962726.jpg" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">반려동물을 기르기로 하는 이유 <span class="text-muted">고독과 외로움을 예방할 수 있게 돕는다</span></h2>
+            <p class="lead">고독과 외로움을 예방할 수 있게 돕는다
+또한, 반려동물은 당신이 외로움을 극복하게 도와준다. 무엇보다도 그들은 당신과 함께한다. 그것이 바로 노인들이 개든, 고양이든, 새든 상관없이반려동물을 기르기로 하는 이유이다.
+
+그러나 당신과 함께 있는 것 외에도, 개와 같은 반려동물을 기르면 당신을 사교적으로 만들어준다. 바로 적절하게 돌보기 위해 
+
+당신은 자주 산책을 다녀야 하기 때문이다. 개가 있는 사람들은 비슷한 공원과 길로 다녀야 하기 때문에 다른 개의 주인들을 만날 수 있다.</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" src="../image/cab3a23ae84ce11e4e4659fb3f884ebeee690b9f.jpg" alt="Generic placeholder image">
+          </div>
+        </div>
+
+        <hr class="featurette-divider">
+
+        <!-- /END THE FEATURETTES -->
+
+      </div><!-- /.container -->
+
         <!-- Features section-->
         <section class="py-5 border-bottom" id="features">
             <div class="container px-5 my-5">
                 <div class="row gx-5">
                     <div class="col-lg-4 mb-5 mb-lg-0">
+                       <div class="embed-responsive embed-responsive-16by9">
+  							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/3waRYVlYI60?rel=0" allowfullscreen></iframe>
+						</div>
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
-                        <h2 class="h4 fw-bolder">Featured title</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                        <a class="text-decoration-none" href="#!">
+                        
+                        <h2 class="h4 fw-bolder">다 큰 대형견이 아직도 애기인 줄 아는 부모님들</h2>
+                        <p>이름 : 사월 성별 : 女 견종 : 스탠다드푸들(대형견) 생년월일 : 2019년 4월 19일 특징 : 오빠 껌딱지♥ , 공바보 꿈 : 마당있는 주택살기, 천재견(오빠욕심ㅎ) ㅡ insta : sawol.2 e-mail : s_end@naver.com ㅡ #푸들#standardpoodle#크림푸들 ㅡ 각국어 번역 자막 제작 : 컨텐츠 제작의 마무리는 컨텐츠플라이! 글로벌 진출을 위한 최고의 파트너, CONTENTSFLY에서 제작되었습니다. https://www.contentsfly.com </p>
+                        
+                        
+                        <a class="text-decoration-none" href="https://www.youtube.com/watch?v=3waRYVlYI60">
                             Call to action
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
+                    
                     <div class="col-lg-4 mb-5 mb-lg-0">
+                         <div class="embed-responsive embed-responsive-16by9">
+  							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/5mnFORXsq-A?rel=0" allowfullscreen></iframe>
+						</div>
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
-                        <h2 class="h4 fw-bolder">Featured title</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                        <a class="text-decoration-none" href="#!">
+                        <h2 class="h4 fw-bolder">Funniest & Cutest Golden Retriever Puppies - 30 Minutes of Funny Puppy Videos 2022 #11</h2>
+                        <p>PLIFE IS BETTER WITH A GOLDEN RETRIEVER PUPPIES ❤️❤️❤️
+
+Thanks for watching! 🐕 🐶
+_______________________
+Watch funniest golden retriever puppies and try not to laugh. Funny golden retriever dogs, funny puppy videos, funny dog,  cute golden retrievers and many more puppies in this dogs video.
+
+Monkeys Spinning Monkeys, If I Had a Chicken, Life of Riley by Kevin MacLeod is licensed under a Creative Commons Attribution license (https://creativecommons.org/licenses/...)
+Source: http://incompetech.com/music/royalty-...
+
+#funny #dog #puppy #golden #goldentretriever</p>
+                        <a class="text-decoration-none" href="https://www.youtube.com/embed/5mnFORXsq-A?rel=0">
                             Call to action
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                     <div class="col-lg-4">
+                     <div class="embed-responsive embed-responsive-16by9">
+  							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ss-cF-y2upg?rel=0" allowfullscreen></iframe>
+						</div>
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
-                        <h2 class="h4 fw-bolder">Featured title</h2>
-                        <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                        <a class="text-decoration-none" href="#!">
+                        <h2 class="h4 fw-bolder">My Dogs React to GIANT Shark</h2>
+                        <p>More funny reactions from my dogs! These guys really know how to make people laugh and smile! This time I gave them a shark toy ad their reaction was priceless! Guess who was the fearless one and who closed to be on the safe side? I’ll be in the comment section!
+
+Leo's Favorite Products!
+https://amzn.to/3gdLPVu
+
+Follow Us on:
+» Second Channel | https://www.youtube.com/c/leofucarevs...
+» Instagram | https://www.instagram.com/leofucarev/
+» Facebook | https://www.facebook.com/leofucarev
+» TikTok | https://www.tiktok.com/@leofucarev
+
+#goldenretriever #germanshepherdpuppy #dogsreaction</p>
+                        <a class="text-decoration-none" href="https://www.youtube.com/embed/ss-cF-y2upg?rel=0">
                             Call to action
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -263,7 +398,7 @@
         <section class="py-5 border-bottom">
             <div class="container px-5 my-5 px-5">
                 <div class="text-center mb-5">
-                    <h2 class="fw-bolder">Customer testimonials</h2>
+                    <h2 class="fw-bolder">고객 평가</h2>
                     <p class="lead mb-0">Our customers love working with us</p>
                 </div>
                 <div class="row gx-5 justify-content-center">
@@ -274,8 +409,8 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
                                     <div class="ms-4">
-                                        <p class="mb-1">Thank you for putting together such a great product. We loved working with you and the whole team, and we will be recommending you to others!</p>
-                                        <div class="small text-muted">- Client Name, Location</div>
+                                        <p class="mb-1">이는 아이들에게 반려동물을 기르도록 하는 가장 좋은 이유이다. 아이들은 살아있는 다른 생명체를 돌보아야 하고, 반려동물은 그들이 무엇을 하는가에 의지한다.</p>
+                                        <div class="small text-muted">- 제임스 라이너</div>
                                     </div>
                                 </div>
                             </div>
@@ -286,8 +421,8 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
                                     <div class="ms-4">
-                                        <p class="mb-1">The whole team was a huge help with putting things together for our company and brand. We will be hiring them again in the near future for additional work!</p>
-                                        <div class="small text-muted">- Client Name, Location</div>
+                                        <p class="mb-1">동물이 우리를 행복하게 만든다는 것을 증명하는 많은 연구가 있다. 그들은 일상생활에서 우리를 돕고 훌륭한 인생의 동반자이다. 하지만, 반려동물을 기르는 것은 장난감이나 액세서리를 갖는 것과 같지 않다는 것을 기억해야 한다. 그들은 우리를 필요로 하고 의지하는 살아있는 생명체이다</p>
+                                        <div class="small text-muted">- 옵티머스 프라임</div>
                                     </div>
                                 </div>
                             </div>

@@ -12,9 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import com.ezen.project.Repository.FamilyRepository;
 import com.ezen.project.Repository.MemberRepository;
-import com.ezen.project.Repository.SignUpRepository;
+
 import com.ezen.project.model.Family;
 import com.ezen.project.model.Member;
 
@@ -28,7 +30,7 @@ public class WalkTLoginService {
 	private JavaMailSender sender;
 	
 	@Autowired
-	private SignUpRepository signUpRepository;
+	private FamilyRepository signUpRepository;
 	
 	@Autowired
 	private MemberRepository memberRepository;
@@ -64,8 +66,9 @@ public class WalkTLoginService {
 		return fa;
 	}
 	
-	public Member memberSignUpForm(Member member) {  
+	public Member memberSignUpForm(Member member,Long FamilyId) { 
 		Member fa = memberRepository.save(member);
+		memberRepository.update_value(FamilyId, member.getMemberId());
 		return fa;
 	}
 	
@@ -75,7 +78,17 @@ public class WalkTLoginService {
 	public String findByDelEmail(String delEmail) {
 		return signUpRepository.findByDelEmail(delEmail).getDelEmail();
 	}
-	public Family findByDelAll(String delEmail) {
-		return signUpRepository.findByDelEmail(delEmail);
+	
+	public String findByDelMemberEmail(String memberEmail) {
+		return memberRepository.findByMemberEmail(memberEmail).get(0).getMemberEmail();
 	}
+	public String findByDelMemberPwd(String memberEmail) {
+		return memberRepository.findByMemberEmail(memberEmail).get(0).getMemberPw();
+	}
+	
+	public List<Member> getList() {	
+		List<Member> resEntity = memberRepository.findAll();
+		return resEntity;
+	}
+	
 }
