@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+
+<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+   <th:block th:fragment="content">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+function add(){
+	var formdata = $('#add_form').serialize();
+	//alert('edit 입장')
+	$.ajax({
+		url:'add_detail',
+		method:'post',
+		cache:false,
+		data:formdata,
+		dataType:'json',
+		success:function(res){
+			if (res.petBoolean == false) {
+				alert('추가 실패');				
+			}
+			else if(res.petBoolean == true){
+				alert('추가 하였습니다.');
+				location.href="add_form";
+			}
+		},
+		error:function(xhr,status,err){
+			alert('Error:'+err);
+		}
+	});
+	return false; //이걸 하지 않으면 저장이 두번된다. 
+	}
+function edit(){
+	alert("edit_form 입장");
+	var formdata = $('#edit_form').serialize();
+	$.ajax({
+		url:'update_detail',
+		method:'post',
+		cache:false,
+		data:formdata,
+		dataType:'json',
+		success:function(res){
+			if (res.update == false) {
+				alert('수정 실패');				
+			}
+			else if(res.update == true){
+				alert('수정 하였습니다.');
+				location.href="add_form";
+			}
+			
+			
+		},
+		error:function(xhr,status,err){
+			alert('Error:'+err);
+		}
+	});
+	return false; //이걸 하지 않으면 저장이 두번된다. 
+}
+function deleted(petId){
+	if(!confirm('정말로 삭제하시겠습니까?'))return; //로그아웃 안하겠다면 
+		
+		$.ajax({	//Json :Javascript Object Notation{'key':'value','key2':'var2',.....}
+			url:'deleted?petId='+petId, //서버의 유저 //전송 속성
+			method:'post', //보낸다 //전송 속성
+			cache:false,
+			dataType:'json', //응답 데이터 json 문자열 형식
+			//주로 text,json,html,xml script 서버
+			success:function(res){
+				if (res.deleted == false) {
+					alert('삭제 실패');				
+				}
+				else if(res.deleted == true){
+					alert('삭제 하였습니다.');
+					location.href="add_form";
+				}
+		},
+		error:function(xhr,status,err){
+			alert('Error:'+err);
+			
+		}
+	});
+	return false; //이걸 하지 않으면 저장이 두번된다. 
+}
+
+</script>
+   <div class="">
+  <h2>펫을 추가해 보세요</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">추가하기</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+         
+          <h4 class="modal-title">펫을 추가해 보세요 </h4>
+        </div>
+        <div class="modal-body">
+         <form action="add_detail" method="post" id="add_form">
+         <div class="form-group">
+      <label for="usr">펫 닉네임 & 성별</label>
+      <input class="form-control" type="text" name="petName" id="petName" required="required">
+    </div>
+    <div class="form-group">
+      <label for="pwd">품종 이름</label>
+      <input class="form-control" type="text" name="breed" id="breed" required="required">
+    </div>
+  <div class="form-group">
+<label for="sel1">사이즈</label>
+<select class="form-control" name="petSize" id="petSize">
+     				 <option>대형견</option>
+      				 <option>중형견</option>
+      				  <option>소형견</option>
+    			</select>	
+    			</div>
+ 
+</form>
+<button type="button" class="btn btn-success" onclick="add()">추가하기</button>
+ <hr>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p/>
+ <div class="col-sm-10">
+<table  class="table table-hover" >
+<tr><th>펫 닉네임 & 성별 </th><th>품종 이름</th><th>펫 사이즈</th><th>수정사항</th></tr>
+<tr th:each="list : ${list}">
+<td><a  th:text="${list.petName}"></a></td>
+<td th:text="${list.breed}"></td>
+<td th:text="${list.petSize}"></td>
+<td><button  class="w3-button w3-green w3-large" th:onclick="'javascript:updated(\''+${list.petId }+'\');'">수정</button>
+<a th:onclick="'javascript:deleted(\''+${list.petId }+'\');'"><button class="w3-button w3-red w3-large">삭제</button></a>
+</td>
+
+</tr>
+</table>
+ </div>
+ 
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        <img alt="Avatar" style="width:30%" class="w3-circle w3-margin-top"  src="../image/GettyImages-1291814647-e1654796088869.jpg" >
+      </div>
+
+      <form class="w3-container" action="update_detail" method="post" id="edit_form">
+        <div class="w3-section">
+          <label><b>펫 닉네임 & 성별</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Pet name" name="petName" id="petName_up" required>
+          <label><b>품종 이름</b></label>
+          <input class="w3-input w3-border" type="text" placeholder="Enter Pet name" name="breed" id="breed_up" required>
+            <div class="form-group">
+		<label for="sel1">사이즈</label>
+		<select class="form-control" name="petSize" id="petSize">
+     				 <option>대형견</option>
+      				 <option>중형견</option>
+      				  <option>소형견</option>
+    			</select>
+    	<input type="hidden" name="petId" id="petId_up" required>			
+    			</div>
+          <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Remember me
+        </div>
+      </form>
+ <button class="w3-button w3-block w3-green w3-section w3-padding" type="button" onclick="edit()">업로드 하기</button>
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small"><a href="#">비밀번호를 잃어버렸습니까?</a></span>
+      </div>
+
+    </div>
+  </div>
+
+ 
+
+<script>
+function updated(petId){
+	document.getElementById('id01').style.display='block'
+	$.ajax({
+		url:'updated?petId='+petId,
+		method:'post',
+		cache:false,
+		dataType:'json',
+		success:function(res){
+			$( "#petId_up" ).val(res.petId);
+			$( "#petName_up" ).val(res.name);
+			$( "#breed_up" ).val(res.breed);
+			//document.getElementById("petName_up").innerHTML = res.name;
+			//document.getElementById("breed_up").innerHTML = res.breed;
+			//alert(res.name+"/"+res.breed+"/"+res.size);
+		},
+		error:function(xhr,status,err){
+			alert('Error:'+err);
+		}
+	});
+}
+</script>
+</th:block>
+   
+</th:block>

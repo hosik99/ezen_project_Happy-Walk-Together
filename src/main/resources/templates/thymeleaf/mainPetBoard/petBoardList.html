@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>Index 페이지 입니다.</title>
-</head>
-<body>
-<h3>Index 페이지 입니다</h3>
-</body>
-</html>  
+
+<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+
+   <th:block th:fragment="content">
+   <!-- 여기다가 넣을 내용 삽입 -->
+   <h1>만남의 매칭 모임 입니다.</h1>
+   
+   </th:block>
+   
+</th:block>

@@ -35,7 +35,7 @@ public class WalkTLoginController {
 		@Autowired
 		private HttpSession session;
 	 
-		@GetMapping("/introduceIndex")
+		@GetMapping("/introduceindex")
 	    public String introduceIndex(Model model)
 	    {	
 	       return "thymeleaf/introduce/index";

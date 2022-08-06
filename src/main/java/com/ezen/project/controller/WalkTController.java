@@ -31,24 +31,24 @@ public class WalkTController {
 	private HttpSession session;
 	
 	//소개 화면 *
-	@GetMapping("/introduceIndex")
+	@GetMapping("/introduce_index")
     public String introduceIndex(Model model)
     {	
-	model.addAttribute("img_feature1", "../../introduce/image/feature1.jpg");
        return "thymeleaf/introduce/index";
     }
 		
 	//메인 화면 *
-	@GetMapping("/mainIndex")
+	@GetMapping("/main_index")
 	public String mainIndex()
-	{
-	       return "thymeleaf/main/index";
+	{	
+	   return "thymeleaf/main/index";
 	}
+	
 	
 		
 	
 	//펫 채팅 리스트 화면
-	@GetMapping("/petMeetChatList")
+	@GetMapping("/pet_meet_chatList")
 	public String petMeetChatList()
 	{
 		       return "thymeleaf/mainChat/petMeetChatList";
@@ -92,13 +92,13 @@ public class WalkTController {
 	
 	
 	//펫 만남 게시판 화면
-	@GetMapping("/petBoardList")
+	@GetMapping("/pet_board_list")
 	public String petBoardList()
 	{
 			   return "thymeleaf/mainPetBoard/petBoardList";
 	}	
 	//펫 만남 상세보기 화면 
-	@GetMapping("/petBoardDetail")
+	@GetMapping("/pet_board_detail")
 	public String petBoardDetail(@RequestParam("num")int num)
 	{
 		       return "thymeleaf/mainPetBoard/petBoardDetail";
