@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript">
+function login_Kakao_initCode(){
+	$.ajax({
+		url: '/login/kakao_api/initCode',
+		method:'POST',
+		cache: 'false',
+		dataType: 'json',
+		success:function(res){
+			Kakao.init(res.code);
+			console.log(Kakao.isInitialized());
+		},
+		error: function(xhr,status,err){
+			alert('Error : '+err)
+		}
+	})
+	return false;	
+}
+function kakao_login(){
+	$.ajax({
+		url:'/login/kakao_api/kakao_login',
+		method: 'POST',
+		cache: false,
+		dataType: 'json',
+		success: function(res){
+			Kakao.init(result.key);
+			login_Kakao_script();
+		},
+		error: function(error){
+			alert('Error : '+error)
+		}
+	});
+	return false;
+}
+</script>
+</head>
+
+
+<body>
+<label id="kakao_login_button">
+<button type="button" onclick="kakao_login();">로그인</button></label>
+</body>
+</html>

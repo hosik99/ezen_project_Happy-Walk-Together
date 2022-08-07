@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -26,8 +27,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class WalkTLoginService {
 
-	@Autowired
-	private JavaMailSender sender;
 	
 	@Autowired
 	private FamilyRepository signUpRepository;
@@ -37,6 +36,7 @@ public class WalkTLoginService {
 		
 	public boolean sendMineMessage(String delEmail, String familyPwd)
 	   {
+		  JavaMailSender sender = new JavaMailSenderImpl();
 	      MimeMessage mimeMessage = sender.createMimeMessage();
 	      String content ="<h3>인증 확인 입니다.</h3>"
 	        		+ "<form method='post' action='http://localhost:58172/pet_login/form_complate?delEmail="+delEmail+"&familyPwd="+familyPwd+"'>"
