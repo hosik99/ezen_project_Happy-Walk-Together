@@ -71,6 +71,8 @@ public class WalkPetAddController {
 		map.put("petId",  edit.get(0).getPetId());
 		return map;
 	}
+	
+	
 	@PostMapping("/update_detail")
 	@ResponseBody
 	public Map<String,Object> updateDetail(Pet pet) {

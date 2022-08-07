@@ -11,6 +11,16 @@
 		<style>
 			html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 		</style>
+		
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.4/dayjs.min.js" integrity="sha512-Ot7ArUEhJDU0cwoBNNnWe487kjL5wAOsIYig8llY/l0P2TUFwgsAHVmrZMHsT8NGo+HwkjTJsNErS6QqIkBxDw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script class="" src="../plugin/js/datepicker-bs4.js" defer="defer"></script>
+
+		
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
 	$( document ).ready(function() {
@@ -22,6 +32,49 @@
 		location.href="/pet/introduce_index";
 	}
 });
+	
+	
+	function edit(){
+		alert("edit_form 입장");
+		var formdata = $('#edit_form').serialize();
+		$.ajax({
+			url:'/member_modify/update_detail',
+			method:'post',
+			cache:false,
+			data:formdata,
+			dataType:'json',
+			success:function(res){
+				if (res.update == false) {
+					alert('수정 실패');				
+				}
+				else if(res.update == true){
+					alert('수정 하였습니다.');
+					//location.href="/pet/main_index";
+				}
+			},
+			error:function(xhr,status,err){
+				alert('Error:'+err);
+			}
+		});
+		return false; //이걸 하지 않으면 저장이 두번된다. 
+	}	
+	function logout(){
+		if(!confirm('로그아웃 하시겠습니까?'))return; //로그아웃 안하겠다면 
+		$.ajax({
+			url:'/member_modify/logout',
+			method:'post',
+			cache:false,
+			dataType:'text',
+			success:function(res){	
+				//alert("성공");
+				location.href="/pet/introduce_index";
+			},
+			error:function(xhr,status,err){
+				alert('Error:'+err);
+			}
+		});
+		return false; //이걸 하지 않으면 저장이 두번된다. 
+	}	
 </script>	
 	</head>
 	
@@ -29,7 +82,7 @@
 		<!-- Top container -->
 		<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
 		  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-		  <span class="w3-bar-item w3-right"><span th:text="${session.memberEmail}"></span>님 안녕하세요</span>
+		  <span class="w3-bar-item w3-right"><span th:text="${session.memberEmail}"></span>님 안녕하세요/<a href="" th:onclick="javascript:logout()" >로그아웃</a></span>
 		</div>
 		
 		<!-- Sidebar/menu -->
@@ -42,7 +95,7 @@
 		    <div class="w3-col s8 w3-bar">
 		      <span>Welcome, <strong></strong> 환영합니다.</span><br>
 		      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-		      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+		      <a class="w3-bar-item w3-button" th:onclick="javascript:updated()" ><i class="fa fa-user"></i></a>
 		      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
 		    </div>
 		  </div>
@@ -65,7 +118,65 @@
 		  </div>
 		</nav>
 	
-	
+	<!-- Update Button -->	
+	<div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        <img alt="Avatar" style="width:30%" class="w3-circle w3-margin-top"  src="../image/GettyImages-1291814647-e1654796088869.jpg" >
+      </div>
+
+      <form class="w3-container" action="update_detail" method="post" id="edit_form">
+        <div class="w3-section">
+          <label><b>이메일</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter member Email" name="memberEmail" id="memberEmail_up" required readonly="readonly">
+          <label><b>패스워드</b></label>
+          <input class="w3-input w3-border" type="text" placeholder="Enter member Pw" name="memberPw" id="memberPw_up" required>
+          <label><b>닉네임</b></label>
+          <input class="w3-input w3-border" type="text" placeholder="Enter member Name" name="memberName" id="memberName_up" required>
+          <label><b>나이</b></label>
+          <input class="w3-input w3-border" type="text" placeholder="Enter member Age" name="memberAge" id="memberAge_up" required>
+         <div class="container py-3">
+         <div class="card">
+
+<div class="card-body">
+<div class="row justify-content-start">
+<div class="form-group col-6">
+<label for="birth_date">생일</label>
+<div class="input-group">
+<input type="text" id="birth_date" class="form-control" name="birth_date" autocomplete="off" readonly="readonly" />
+<div class="input-group-append"><button type="button" class="btn btn-outline-secondary" data-toggle="datepicker"><i class="far fa-calendar-alt"></i></button></div>
+</div>
+</div><!-- /.form-group -->
+</div><!-- /.row -->
+</div><!-- /.card-body -->
+</div><!-- /card -->
+<br />
+</div>		
+          
+          <label><b>핸드폰 번호</b></label>
+          <input class="w3-input w3-border" type="text" placeholder="Enter member Phone Number" name="memberPhoneNumber" id=memberPhoneNumber_up required>
+         
+            
+    <div class="form-group">
+		<label for="sel1">성별</label>
+		<select class="form-control" name="gender">
+     				 <option>남자</option>
+      				 <option>여자</option>
+    			</select>			
+    </div>   
+          <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Remember me
+   </div> 
+      </form>
+ <button class="w3-button w3-block w3-green w3-section w3-padding" type="button" onclick="edit()">업로드 하기</button>
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small"><a href="#">비밀번호를 잃어버렸습니까?</a></span>
+      </div>
+
+    </div>
+  </div>
 		<!-- Overlay effect when opening sidebar on small screens -->
 		<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 			
@@ -100,6 +211,43 @@
 			  overlayBg.style.display = "none";
 			}
 			</script>
+			<script>
+function updated(){
+
+	var memberEmail = "[[${session.memberEmail}]]";
+	//alert(memberEmail+"입장");
+	document.getElementById('id01').style.display='block';
+	$.ajax({
+		url:'/member_modify/updated?memberEmail='+memberEmail,
+		method:'post',
+		cache:false,
+		dataType:'json',
+		success:function(res){
+			$( "#memberPw_up" ).val(res.memberPw);
+			$( "#memberName_up" ).val(res.memberName);
+			$( "#memberAge_up" ).val(res.memberAge);
+			$( "#birth_date" ).val(res.birthday);
+			$( "#gender_up" ).val(res.gender);
+			$( "#memberPhoneNumber_up" ).val(res.memberPhoneNumber);
+			$( "#memberEmail_up" ).val(res.memberEmail);
+			//document.getElementById("petName_up").innerHTML = res.name;
+			//document.getElementById("breed_up").innerHTML = res.breed;
+			//alert(res.name+"/"+res.breed+"/"+res.size);
+		},
+		error:function(xhr,status,err){
+			alert('Error:'+err);
+		}
+	});
+}
+
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	jQuery('#start_date, #end_date, #birth_date').datepicker({
+
+	});
+});
+</script>	
 	</body>
 	
 </th:block>

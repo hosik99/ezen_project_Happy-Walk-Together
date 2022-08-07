@@ -12,6 +12,14 @@
 
 <script src="css/style.css" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.4/dayjs.min.js" integrity="sha512-Ot7ArUEhJDU0cwoBNNnWe487kjL5wAOsIYig8llY/l0P2TUFwgsAHVmrZMHsT8NGo+HwkjTJsNErS6QqIkBxDw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
+<script class="" src="../plugin/js/datepicker-bs4.js" defer="defer"></script>
+
+
 <link rel="stylesheet"  href="css/style.css"  />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
@@ -75,10 +83,24 @@ function add(){
           <div class="mt-3 px-3">
               <input class="form-control" placeholder="Address"   type="text" name="address" id="address" required="required" >
           </div>
-          <div class="mt-3 px-3">
-              <input class="form-control" placeholder="Birthday"  type="text" name="birthday" id="birthday"  required="required" >
-          </div>
+          
+          <div class="container py-3">
+         <div class="card">
 
+<div class="card-body">
+<div class="row justify-content-start">
+<div class="form-group col-6">
+<label for="birth_date">생일</label>
+<div class="input-group">
+<input type="text" id="birth_date" class="form-control" name="birthday" autocomplete="off" readonly="readonly"  required="required"/>
+<div class="input-group-append"><button type="button" class="btn btn-outline-secondary" data-toggle="datepicker"><i class="far fa-calendar-alt"></i></button></div>
+</div>
+</div><!-- /.form-group -->
+</div><!-- /.row -->
+</div><!-- /.card-body -->
+</div><!-- /card -->
+<br />
+</div>		
           <div class="mt-3 px-3">
               <input class="form-control" placeholder="Member Age"   type="text" name="memberAge" id="memberAge" required="required">
           </div>
@@ -113,5 +135,12 @@ function add(){
        
    </div> 
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+	jQuery('#start_date, #end_date, #birth_date').datepicker({
+
+	});
+});
+</script>	
 </body>
 </html>

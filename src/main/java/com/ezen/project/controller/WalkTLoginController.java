@@ -50,13 +50,14 @@ public class WalkTLoginController {
 		@PostMapping("/member_sign_in_detail")
 		public String MemberSignIn_detail
 		(@RequestParam("memberEmail")String memberEmail,
-		@RequestParam("memberPw")String memberPw)
+		@RequestParam("memberPw")String memberPw,Model model)
 		{
 		for (int i = 0; i < svc.getList().size(); i++) {
 			if (svc.getList().get(i).getMemberEmail().equals(memberEmail)&&
 					svc.getList().get(i).getMemberPw().equals(memberPw)) {
 					System.out.println("검증 입장 MemberSignIn");					
-					session.setAttribute("memberEmail", memberEmail);					
+					session.setAttribute("memberEmail", memberEmail);
+					
 					return "thymeleaf/main/index";				
 				}
 		}
