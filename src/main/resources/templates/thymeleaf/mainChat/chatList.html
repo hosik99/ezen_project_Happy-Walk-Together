@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>채팅방</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<style type="text/css">
+		body{
+			background-color: rgb(255, 238, 238);
+		}
+		table{
+		
+		}
+		#box{
+			background-color:rgb(206, 229, 208);
+			width:90%;
+			border-radius: 5px;
+			margin: 100px auto;
+			padding: 0px;
+		}
+		#fir_thead{
+			color:rgb(26, 77, 46);
+			background-color: rgb(148, 180, 159);
+		}
+		#fir_tbody{
+			color:rgb(26, 77, 46);
+			font: bold;
+		}
+		#all_btn{
+			background-color: rgb(252, 248, 232);
+			color:rgb(118, 186, 153);
+			border-radius: 5px;
+			border: none;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		function invite(channelCode){
+			var adder = prompt('초대할 아이디를 입력해주세요.');
+			if(adder==null) return false;
+			var data = {};
+			data.adder = adder;
+			data.channelCode = channelCode;
+			
+			$.ajax({
+				url : '/ws/invite/channel',
+				method:'post',
+				cache:false,
+				data:data,
+				dataType:'text',
+				success:function(res){
+					if(res=='checkFalse'){
+						alert('이미 채팅방에 초대되어있습니다.');
+					}else{
+						alert(res ? '초대했습니다.' : '초대에 실패했습니다.');
+					}
+					
+				},
+				error:function(xhr,status,err){
+					alert('초대에 실패했습니다. ');
+				}
+			});
+			return false;
+		}
+		
+		function crateChannel(){
+			var channelTitle = prompt('새로 만들 채팅방 이름을 입력해주세요.');
+			if(channelTitle==null) return false;
+			var data = {};
+			data.channelTitle = channelTitle;
+			
+			$.ajax({
+				url : '/ws/chat/crate/channelCode',
+				method:'post',
+				cache:false,
+				data:data,
+				dataType:'text',
+				success:function(res){
+					alert(res ? '채팅방을 생성했습니다..' : '채팅방을 생성에 실패했습니다.');
+					location.href='/ws/chat/list';
+				},
+				error:function(xhr,status,err){
+					alert('채팅방을 생성에 실패했습니다.');
+				}
+			});
+			return false;
+		}
+		
+		function updateTitle(channelCode){
+			var updateTitle = prompt('채팅방 이름을 입력해주세요.');
+			if(updateTitle==null) return false;
+			var data = {};
+			data.updateTitle = updateTitle;
+			data.channelCode = channelCode;
+			
+			$.ajax({
+				url : '/ws/update/title',
+				method:'post',
+				cache:false,
+				data:data,
+				dataType:'text',
+				success:function(res){
+					if(res){
+						location.href='/ws/chat/list';
+					}else{
+						alert('이름 수정에 실패했습니다.');
+					}
+				},
+				error:function(xhr,status,err){
+					alert('이름 수정에 실패했습니다.');
+				}
+			});
+			return false;
+		}
+		
+		function deleteChannel(channelCode){
+			if(!confirm('정말로 삭제하시겠습니까?')) return false;
+			var data = {};
+			data.channelCode = channelCode;
+			
+			$.ajax({
+				url : '/ws/delete/channel',
+				method:'post',
+				cache:false,
+				data:data,
+				dataType:'text',
+				success:function(res){
+					if(res){
+						location.href='/ws/chat/list';
+					}else{
+						alert('삭제에 실패했습니다.');
+					}
+				},
+				error:function(xhr,status,err){
+					alert('삭제에 실패했습니다.');
+				}
+			});
+			return false;
+		}
+	</script>
+</head>
+<body>
+<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+
+   <th:block th:fragment="content">
+	   <div id="box">
+			<table class="table table-hover">
+			  <thead id="fir_thead">
+			    <tr>
+			      <th scope="col"> </th>
+			      <th scope="col"> </th>
+			      <th colspan="2" scope="col" th:text="채팅방"></th>
+			      <th scope="col"></th>
+			      <th scope="col">	
+			      	<input id="all_btn" type="button" th:value="방만들기" th:onclick="crateChannel();">
+			      </th>
+			      <th scope="col"></th>
+			    </tr>
+			  </thead>
+			  <tbody id="fir_tbody">	
+			  	<tr th:each="list : ${list}">
+			  	  <th th:if="${list.readed}==1">
+			  	  	<span th:text="NEW" style="color: red;"></span>
+			  	  </th>
+			  	  <th th:unless="${list.readed}==1">
+			  	  	
+			  	  </th>
+			      <td></td>
+			      <td colspan="2" th:text=${list.channelTitle} th:onclick="location.href='/ws/chat/'+[[${list.chatNum}]]+'/'+[[${list.channelCode}]]"></td>
+			      <td><input id="all_btn" type="button" th:value="채팅방_이름바꾸기" th:onclick="updateTitle('[[${list.channelCode}]]');"></td>
+			      <td><input id="all_btn" type="button" th:value="초대하기" th:onclick="invite('[[${list.channelCode}]]');"></td>
+			      <td><input id="all_btn" type="button" th:value="X" th:onclick="deleteChannel('[[${list.channelCode}]]');"></td>
+			    </tr>
+			  </tbody>
+			</table>
+		</div>
+   
+   </th:block>
+   
+</th:block>
+	
+</body>
+</html>

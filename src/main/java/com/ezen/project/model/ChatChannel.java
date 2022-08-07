@@ -2,7 +2,6 @@ package com.ezen.project.model;
 
 import java.sql.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,26 +15,22 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 @Entity
-@Table(name="message")
-public class Message {
+@Table(name="chatChannel")
+public class ChatChannel {
+	
 	@Id
-	private Long num;
-	
-	private String sender;
-	
-	@NotEmpty
-	@Column(name="receiver")
-	private String receiver;
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long chatNum;
 	
 	@NotEmpty
-	@Column(name="title")
-	private String title;
+	private String userId;
 	
 	@NotEmpty
-	@Column(name="contents")
-	private String contents;
+	private String channelCode;
 	
-	private Date writeDate;
+	private Date createDate;
 	
-	private Integer readed;
+	private String channelTitle="<새로 초대받은 채팅방 입니다.>";
+	
+	private Integer readed=1;
 }

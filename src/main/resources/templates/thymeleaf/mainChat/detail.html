@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript">
+		function crateAndInvite(adder)
+		{
+			var channelTitle = prompt('새로 만들 채팅방 이름을 입력해주세요.');
+			if(channelTitle==null) return false;
+			var data = {};
+			data.adder = adder;
+			data.channelTitle = channelTitle;
+			
+			$.ajax({
+				url : '/ws/chat/crate/invite',
+				method:'post',
+				cache:false,
+				data:data,
+				dataType:'json',
+				success:function(res){
+					if(res.entered){
+						location.href='/ws/chat/list';
+					}else{
+						alert('채팅방을 생성하지 못 했습니다.')
+					}
+				},
+				error:function(xhr,status,err){
+				}
+			});
+			return false;
+		}
+	</script>
+</head>
+<body>	
+	<input type="button" th:value="채팅하기" th:onclick="crateAndInvite('smith');">
+</body>
+</html>
