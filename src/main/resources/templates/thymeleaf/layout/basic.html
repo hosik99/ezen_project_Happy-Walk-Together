@@ -15,8 +15,9 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
     console.log( "ready!" );
-    var session = "[[${session.memberEmail}]]";
-    if (session ==null) {
+    var session = "[[${memberEmail}]]";
+    console.log(session);
+    if (session ==null || session.length==0) {
 		alert("세션이 만료되어 다시 로그인 해주시기 바랍니다.");
 		location.href="/pet/introduce_index";
 	}
