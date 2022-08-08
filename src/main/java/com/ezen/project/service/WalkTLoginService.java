@@ -8,12 +8,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import com.ezen.project.Repository.FamilyRepository;
 import com.ezen.project.Repository.MemberRepository;
@@ -34,23 +32,27 @@ public class WalkTLoginService {
 	@Autowired
 	private MemberRepository memberRepository;
 		
+	@Autowired
+	private JavaMailSender sender;
 	public boolean sendMineMessage(String delEmail, String familyPwd)
 	   {
-		  JavaMailSender sender = new JavaMailSenderImpl();
+		System.out.println(delEmail+":이메일 입장 delEmail :"+familyPwd);
+		
 	      MimeMessage mimeMessage = sender.createMimeMessage();
 	      String content ="<h3>인증 확인 입니다.</h3>"
-	        		+ "<form method='post' action='http://localhost:58172/pet_login/form_complate?delEmail="+delEmail+"&familyPwd="+familyPwd+"'>"
+	        		+ "<form method='post' action='http://localhost/pet_login/form_complate?delEmail="+delEmail+"&familyPwd="+familyPwd+"'>"
 	        		+ "<input type='submit' value='인증 확인'>"
 	        		+ "</form>";
 	      String controll = "text/html;charset=utf-8";
 	      try {
 	         InternetAddress[] addressTo = new InternetAddress[1];
-	         addressTo[0] = new InternetAddress(delEmail);
-	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);
-	         mimeMessage.setSubject("이메일 인증 입니다.");  //제목
-	         mimeMessage.setContent(content, controll);  //내용        
-	         sender.send(mimeMessage);         
+	         addressTo[0] = new InternetAddress(delEmail); //이메일
+	         mimeMessage.setRecipients(Message.RecipientType.TO, addressTo);	         
+	         mimeMessage.setSubject("이메일 인증 입니다.");  //제목	         
+	         mimeMessage.setContent(content, controll);  //내용   
 	         
+	         sender.send(mimeMessage);         
+	 
 	         return true;
 	      } catch (MessagingException e) {
 	         log.error("에러={}", e);

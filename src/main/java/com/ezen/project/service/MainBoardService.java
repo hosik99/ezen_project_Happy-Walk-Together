@@ -17,7 +17,7 @@ import com.ezen.project.dto.PageRequestDTO;
 import com.ezen.project.dto.PageResultDTO;
 import com.ezen.project.model.MainBoard;
 import com.ezen.project.model.Member;
-import com.querydsl.core.BooleanBuilder;
+
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

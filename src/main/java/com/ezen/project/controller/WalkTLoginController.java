@@ -78,8 +78,10 @@ public class WalkTLoginController {
 		public String mailCertificationForm(@RequestParam("delEmail")String delEmail,
 											@RequestParam("familyPwd")String familyPwd,
 											HttpSession session, Model model) {
+			System.out.println("입장 family_form");
 			
-			svc.sendMineMessage(delEmail,familyPwd);	
+			svc.sendMineMessage(delEmail,familyPwd);
+			System.out.println("입장 family_form");
 			return "thymeleaf/login/mailCertificationForm";	
 		}
 		//회원 가입 화면 
@@ -131,7 +133,7 @@ public class WalkTLoginController {
 			       return "thymeleaf/login/lostIdFindIdForm";
 		}	
 		//비밀번호 찾기 화면 
-		@GetMapping("/lost_pw_fInd_form")
+		@GetMapping("/lost_pw_find_form")
 		public String lostPwFIndPwForm()
 		{
 			       return "thymeleaf/login/lostPwFIndPwForm";

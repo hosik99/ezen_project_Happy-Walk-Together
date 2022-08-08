@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.ezen.project.model.Movie;
 import com.ezen.project.model.PictureBoard;
 
 public interface PictureBoardRepository extends JpaRepository<PictureBoard, Long> {
