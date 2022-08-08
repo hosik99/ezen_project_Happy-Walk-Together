@@ -40,7 +40,7 @@ public class WalkTLoginService {
 		
 	      MimeMessage mimeMessage = sender.createMimeMessage();
 	      String content ="<h3>인증 확인 입니다.</h3>"
-	        		+ "<form method='post' action='http://localhost/pet_login/form_complate?delEmail="+delEmail+"&familyPwd="+familyPwd+"'>"
+	        		+ "<form method='post' action='http://localhost:58172/pet_login/form_complate?delEmail="+delEmail+"&familyPwd="+familyPwd+"'>"
 	        		+ "<input type='submit' value='인증 확인'>"
 	        		+ "</form>";
 	      String controll = "text/html;charset=utf-8";
