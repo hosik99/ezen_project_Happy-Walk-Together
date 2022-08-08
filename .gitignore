@@ -16,6 +16,7 @@ local.properties
 
 ### Eclipse Properties###
 application.properties
+application-oauth.properties
 
 # External tool builders
 .externalToolBuilders/
