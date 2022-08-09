@@ -27,10 +27,11 @@ public interface PictureBoardRepository extends JpaRepository<PictureBoard, Long
             countQuery= "SELECT count(p) FROM PictureBoard p")
     Page<Object[]> getListPage(Pageable pageable);
 
-
-    @Query("select p, pi ,avg(coalesce(r.grade,0)),  count(r)" +
-            " from PictureBoard p left outer join PictureBoardImage pi on pi.board = p " +
+    @Query("select p.bno, pi.inum, avg(coalesce(r.grade,0)), count(r)" +
+            " from PictureBoard p " +
+    		" left outer join PictureBoardImage pi on pi.board = p " +
             " left outer join Review  r on r.board = p "+
-            " where p.bno = :bno group by pi")
+            " group by p.bno, pi.inum " +
+            " having p.bno = :bno")
     List<Object[]> getPictureBoardWithAll(Long bno);
 }

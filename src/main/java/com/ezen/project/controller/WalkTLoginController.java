@@ -57,6 +57,7 @@ public class WalkTLoginController {
 					svc.getList().get(i).getMemberPw().equals(memberPw)) {
 					System.out.println("검증 입장 MemberSignIn");					
 					session.setAttribute("memberEmail", memberEmail);
+					session.setAttribute("memberId", svc.findIdByMemberEmail(memberEmail));
 					
 					return "thymeleaf/main/index";				
 				}

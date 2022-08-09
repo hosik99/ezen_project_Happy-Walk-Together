@@ -1,5 +1,6 @@
 package com.ezen.project.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +80,25 @@ public class PictureBoardService {
         );
 
         return new PageResultDTO<>(result, fn);
+    }
+    
+    public PictureBoardDTO getPictureBoard(Long bno) {
+    	List<Object[]> result = pictureBoardRepository.getPictureBoardWithAll(bno);
+    	
+    	PictureBoard pictureBoard = (PictureBoard)(pictureBoardRepository.findById((Long)result.get(0)[0]).get()) ; // PictureBoard 엔티티는 가장 앞에 존재 - 모든 Row가 동일한 값
+    	
+    	List<PictureBoardImage> pictureBoardImageList = new ArrayList<>();
+
+        result.forEach(arr -> {
+            PictureBoardImage  pictureBoardImage = (PictureBoardImage)(pictureBoardImageRepository.findById((Long)arr[1]).get());
+            pictureBoardImageList.add(pictureBoardImage);
+        });
+
+        Double avg = (Double) result.get(0)[2];
+        Long reviewCnt = (Long) result.get(0)[3];
+
+        return entitiesToDTO(pictureBoard, pictureBoardImageList, avg, reviewCnt);
+    	
     }
 	
 	public Map<String, Object> dtoToEntity(PictureBoardDTO pictureBoardDTO) {

@@ -74,6 +74,10 @@ public class WalkTLoginService {
 		return fa;
 	}
 	
+	public Long findIdByMemberEmail(String email) {
+		return memberRepository.findByMemberEmail(email).get(0).getMemberId();
+	}
+	
 	public Long findByDelEmailId(String delEmail) {
 		return signUpRepository.findByDelEmail(delEmail).getFamilyId();
 	}
