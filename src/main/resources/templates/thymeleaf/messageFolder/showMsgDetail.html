@@ -47,39 +47,35 @@
 	</style>
 </head>
 <body>
-<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
-
-   <th:block th:fragment="content">
-	   <div class="container-sm" id="box">
-		<table class="table" id="fir_table">
-		  <thead>
-		    <tr>
-		    </tr>
-		  </thead>
-		  <tbody>
-		    <tr id="fir_td">
-		      <td style="width: 25%" th:text="제목"></td>
-		      <td th:text="${msg.title}"></td>
-		      <td></td>
-		    </tr>
-		    <tr id="fir_td">
-		      <td style="width: 25%" th:text="보낸사람"></td>
-		      <td th:text="${msg.sender}"></td>
-		      <td></td>
-		    </tr>
-		   <tr id="fir_tr">
-		      <td colspan="3" >
-		      	<textarea id="fir_textarea" rows="20"  readonly="readonly" th:text="${msg.contents}"></textarea>
-		      </td>
-		    </tr>
-		  </tbody>
-		</table>
-		<input id="goList_btn" type="button" th:value="목록보기" th:onclick="location.href='/msg/getMsgByReceiver'">
+	<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+	   <th:block th:fragment="content">
+		   <div class="container-sm" id="box">
+			<table class="table" id="fir_table">
+			  <thead>
+			    <tr>
+			    </tr>
+			  </thead>
+			  <tbody>
+			    <tr id="fir_td">
+			      <td style="width: 25%" th:text="제목"></td>
+			      <td th:text="${msg.title}"></td>
+			      <td></td>
+			    </tr>
+			    <tr id="fir_td">
+			      <td style="width: 25%" th:text="보낸사람"></td>
+			      <td th:text="${msg.sender}"></td>
+			      <td></td>
+			    </tr>
+			   <tr id="fir_tr">
+			      <td colspan="3" >
+			      	<textarea id="fir_textarea" rows="20"  readonly="readonly" th:text="${msg.contents}"></textarea>
+			      </td>
+			    </tr>
+			  </tbody>
+			</table>
+			<input id="goList_btn" type="button" th:value="목록보기" th:onclick="location.href='/msg/getMsgByReceiver'">
 		</div>
-   
-   </th:block>
-   
-</th:block>
-
+	   </th:block>
+	</th:block>
 </body>
 </html>

@@ -29,6 +29,7 @@ public class WebSocket
 {
     private static Map<String, Session> sessionMap = new HashMap<>();
     private static Map<String, List<String>> channelMap = new HashMap<>();
+    private static Map<String, String> uidChanCode = new HashMap<>();
     
     @OnOpen
     public void handleOpen(Session session, EndpointConfig config) {
@@ -37,12 +38,9 @@ public class WebSocket
     	if (session != null) {
             HttpSession httpSession = (HttpSession) config.getUserProperties().get("session");
             String uid = (String) httpSession.getAttribute("memberEmail");
-            if(uid!=null) {
-            	String str[] = uid.split("@");
-            	uid = str[0];
-            }
-            System.out.println("uid: "+uid);
             String channelCode = (String) httpSession.getAttribute("channelCode");
+            
+            uidChanCode.put(uid, channelCode);
             
             List<String> chanUserlist =  channelMap.get(channelCode);
             if(chanUserlist==null) {
@@ -60,10 +58,11 @@ public class WebSocket
             sessionMap.put( uid, session);
             
             
-            Map<String, String> map = new HashMap<>();
+            Map<String, Object> map = new HashMap<>();
             map.put("from", uid);
             map.put("contents", "");
             map.put("channelCode", channelCode);
+            map.put("chanUserlist", chanUserlist);	//채널코드 안에 접속해있는 접속자 리스트
             
             
             try {
@@ -93,19 +92,21 @@ public class WebSocket
         if (session != null) {
             //String sessionId = session.getId();
         	String uid = getUserBySession(session);
+        	String chanCode = uidChanCode.get(uid);
+        	List<String> chanUserList = channelMap.get(chanCode);
+        	chanUserList.remove(uid);
+        	sessionMap.remove(uid);
+        	/* 웹소켓에 접속한 모든 이용자에게 메시지 전송 */
+            //Map<String, String> map = new HashMap<>();
+            //map.put("from", uid);
+            //map.put("contents", "disconnected");
             
-            /* 웹소켓에 접속한 모든 이용자에게 메시지 전송 */
-            Map<String, String> map = new HashMap<>();
-            map.put("from", uid);
-            map.put("contents", "disconnected");
-            
-            try {
-				String jsStr = new ObjectMapper().writeValueAsString(map);
-				sendMsgToChannel(jsStr);
-			} catch (JsonProcessingException e) {
-				e.printStackTrace();
-			}
-            
+//            try {
+//				String jsStr = new ObjectMapper().writeValueAsString(map);
+//				sendMsgToChannel(jsStr);
+//			} catch (JsonProcessingException e) {
+//				e.printStackTrace();
+//			}
         }
     }
 
@@ -150,26 +151,28 @@ public class WebSocket
         
         String channelCode=null;
         try {
-			Map<String,String> map = new ObjectMapper().readValue(message, Map.class);
-			channelCode = map.get("channelCode");
+			Map<String,Object> map = new ObjectMapper().readValue(message, Map.class);
+			channelCode = (String)map.get("channelCode");
+			
+			List<String> chanUserList = channelMap.get(channelCode);
+			if(chanUserList==null) return false;
+			map.put("chanUserlist", chanUserList);
+			
+	        System.out.println("chanUserList: "+chanUserList.toString());
+	        for(int i=0;i<chanUserList.size();i++) {
+	        	Session ss = sessionMap.get(chanUserList.get(i));
+	        	if (ss == null) {
+	                continue;
+	            }
+	        	if (!ss.isOpen()) {
+	                continue;
+	            }
+	        	String jsStr = new ObjectMapper().writeValueAsString(map);
+	        	ss.getAsyncRemote().sendText(jsStr);
+	        }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-        
-        List<String> chanUserList = channelMap.get(channelCode);
-        
-        if(chanUserList==null) return false;
-        System.out.println("chanUserList: "+chanUserList.toString());
-        for(int i=0;i<chanUserList.size();i++) {
-        	Session ss = sessionMap.get(chanUserList.get(i));
-        	if (ss == null) {
-                continue;
-            }
-        	if (!ss.isOpen()) {
-                continue;
-            }
-        	ss.getAsyncRemote().sendText(message);
-        }
         return true;
     }
     

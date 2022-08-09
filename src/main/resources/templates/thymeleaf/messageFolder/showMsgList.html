@@ -28,6 +28,7 @@
 			
 		}
 		#delete_btn{
+			color: rgb(247, 226, 214);
 			background: rgb(125, 157, 156);
 			border: 0;
 			outline:0;
@@ -39,39 +40,50 @@
 			border: 0;
 			outline:0;
 		}
+		#is_New_Td{
+			 width: 50px;
+		}
+		#fir_title{
+			word-break: break-all;
+		}
 	</style>
 </head>
 <body>
-<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
-
-   <th:block th:fragment="content">
-	   <div id="box">
-		<table class="table table-hover" id="fir_table">
-		  <thead>
-		    <tr id="fir_tr" >
-		      <th scope="col"></th>
-		      <th scope="col">보낸사람</th>
-		      <th scope="col">제목</th>
-		      <th scope="col">수신 시간</th>
-		      <th scope="col"></th>
-		    </tr>
-		  </thead>
-		 	<tbody th:each="list : ${list}" >
-			  	<tr>
-			  	<th scope="row" th:text="${listStat.count}" ></th>
-			      <td th:text="${list.sender}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
-			      <td th:text="${list.title}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
-			      <td th:text="${list.writeDate}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
-			      <td>
-			      	<input id="delete_btn" type="button" th:value="X" th:onclick="location.href='/msg/deleteMsg/'+[[${list.num}]]">
-			   	  </td>
-			    </tr>
-			  </tbody>
-		</table>
-			<input id="write_btn" type="button" th:value="쪽지_보내기" th:onclick="location.href='/msg/msgForm'">
-		</div>
+	<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+	   <th:block th:fragment="content">
+		   <div id="box">
+				<table class="table table-hover" id="fir_table">
+				  <thead>
+				    <tr id="fir_tr" >
+				    	<th scope="col"></th>
+					    <th scope="col"></th>
+					    <th scope="col">보낸사람</th>
+					    <th scope="col">제목</th>
+					    <th scope="col">수신 시간</th>
+					    <th scope="col"></th>
+				    </tr>
+				  </thead>
+					  <tbody th:each="list : ${list}" >
+					  	<tr>
+					  	<td th:if="${list.readed}==0" id="is_New_Td">
+					  		<h6 style="color: red;" th:text="NEW"></h6>
+					  	</td>
+					  	<td th:unless="${list.readed}==0" id="is_New_Td">
+					  	
+					  	</td>
+					  	<th scope="row" th:text="${listStat.count}" ></th>
+					      <td th:text="${list.sender}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
+					      <td id="fir_title" th:text="${list.title}" th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]"></td>
+					      <td th:text="${list.writeDate}"  th:onclick="location.href='/msg/getDetailMsg/'+[[${list.num}]]" ></td>
+					      <td>
+					      	<input id="delete_btn" type="button" th:value="X" th:onclick="location.href='/msg/deleteMsg/'+[[${list.num}]]">
+					   	  </td>
+					    </tr>
+					  </tbody>
+				</table>
+				<input id="write_btn" type="button" th:value="쪽지_보내기" th:onclick="location.href='/msg/msgForm'">
+			</div>
+	   </th:block>
 	</th:block>
-</th:block>
- 	
 </body>
 </html>

@@ -8,7 +8,10 @@
 		function crateAndInvite(adder)
 		{
 			var channelTitle = prompt('새로 만들 채팅방 이름을 입력해주세요.');
-			if(channelTitle==null) return false;
+			if(channelTitle==null |channelTitle.replace(/ /g,"")==""){
+				alert('사용할 수 없는 채팅방 이름입니다.')
+				return false;
+			}
 			var data = {};
 			data.adder = adder;
 			data.channelTitle = channelTitle;
@@ -23,10 +26,11 @@
 					if(res.entered){
 						location.href='/ws/chat/list';
 					}else{
-						alert('채팅방을 생성하지 못 했습니다.')
+						alert('채팅방을 생성하지 못 했습니다.');
 					}
 				},
 				error:function(xhr,status,err){
+					alert('채팅방을 생성하지 못 했습니다.');
 				}
 			});
 			return false;

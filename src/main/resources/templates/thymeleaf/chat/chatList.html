@@ -35,7 +35,6 @@
 			border: none;
 		}
 	</style>
-	
 	<script type="text/javascript">
 		function invite(channelCode){
 			var adder = prompt('초대할 아이디를 입력해주세요.');
@@ -66,10 +65,18 @@
 		}
 		
 		function crateChannel(){
-			var channelTitle = prompt('새로 만들 채팅방 이름을 입력해주세요.');
-			if(channelTitle==null) return false;
+			var channelTitle = prompt('새로 만들 채팅방 이름을 입력해주세요. (20자 이내)');
+			if(channelTitle==null |channelTitle.replace(/ /g,"")==""){
+				alert('사용할 수 없는 채팅방 이름입니다.')
+				return false;
+			}
 			var data = {};
 			data.channelTitle = channelTitle;
+			
+			if(channelTitle.length>20){
+				alert('채팅방 이름은 20자 이내여야합니다.');
+				return false;
+			}
 			
 			$.ajax({
 				url : '/ws/chat/crate/channelCode',
@@ -82,18 +89,26 @@
 					location.href='/ws/chat/list';
 				},
 				error:function(xhr,status,err){
-					alert('채팅방을 생성에 실패했습니다.');
+					alert('채팅방 생성에 실패했습니다.');
 				}
 			});
 			return false;
 		}
 		
 		function updateTitle(channelCode){
-			var updateTitle = prompt('채팅방 이름을 입력해주세요.');
-			if(updateTitle==null) return false;
+			var updateTitle = prompt('새로운 채팅방 이름을 입력해주세요. (20자 이내)');
+			if(updateTitle==null |updateTitle.replace(/ /g,"")==""){
+				alert('사용할 수 없는 채팅방 이름입니다.')
+				return false;
+			}
 			var data = {};
 			data.updateTitle = updateTitle;
 			data.channelCode = channelCode;
+			
+			if(updateTitle.length>20){
+				alert('채팅방 이름은 20자 이내여야합니다.');
+				return false;
+			}
 			
 			$.ajax({
 				url : '/ws/update/title',
@@ -142,44 +157,40 @@
 	</script>
 </head>
 <body>
-<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
-
-   <th:block th:fragment="content">
-	   <div id="box">
-			<table class="table table-hover">
-			  <thead id="fir_thead">
-			    <tr>
-			      <th scope="col"> </th>
-			      <th scope="col"> </th>
-			      <th colspan="2" scope="col" th:text="채팅방"></th>
-			      <th scope="col"></th>
-			      <th scope="col">	
-			      	<input id="all_btn" type="button" th:value="방만들기" th:onclick="crateChannel();">
-			      </th>
-			      <th scope="col"></th>
-			    </tr>
-			  </thead>
-			  <tbody id="fir_tbody">	
-			  	<tr th:each="list : ${list}">
-			  	  <th th:if="${list.readed}==1">
-			  	  	<span th:text="NEW" style="color: red;"></span>
-			  	  </th>
-			  	  <th th:unless="${list.readed}==1">
-			  	  	
-			  	  </th>
-			      <td></td>
-			      <td colspan="2" th:text=${list.channelTitle} th:onclick="location.href='/ws/chat/'+[[${list.chatNum}]]+'/'+[[${list.channelCode}]]"></td>
-			      <td><input id="all_btn" type="button" th:value="채팅방_이름바꾸기" th:onclick="updateTitle('[[${list.channelCode}]]');"></td>
-			      <td><input id="all_btn" type="button" th:value="초대하기" th:onclick="invite('[[${list.channelCode}]]');"></td>
-			      <td><input id="all_btn" type="button" th:value="X" th:onclick="deleteChannel('[[${list.channelCode}]]');"></td>
-			    </tr>
-			  </tbody>
-			</table>
-		</div>
-   
-   </th:block>
-   
-</th:block>
-	
+	<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+	   <th:block th:fragment="content">
+		   <div id="box">
+				<table class="table table-hover">
+				  <thead id="fir_thead">
+				    <tr>
+				      <th scope="col"> </th>
+				      <th scope="col"> </th>
+				      <th colspan="2" scope="col" th:text="채팅방"></th>
+				      <th scope="col"></th>
+				      <th scope="col">	
+				      	<input id="all_btn" type="button" th:value="방만들기" th:onclick="crateChannel();">
+				      </th>
+				      <th scope="col"></th>
+				    </tr>
+				  </thead>
+				  <tbody id="fir_tbody">	
+				  	<tr th:each="list : ${list}">
+				  	  <th th:if="${list.readed}==1">
+				  	  	<span th:text="NEW" style="color: red;"></span>
+				  	  </th>
+				  	  <th th:unless="${list.readed}==1">
+				  	  	
+				  	  </th>
+				      <td></td>
+				      <td colspan="2" th:text=${list.channelTitle} th:onclick="location.href='/ws/chat/'+[[${list.chatNum}]]+'/'+[[${list.channelCode}]]"></td>
+				      <td><input id="all_btn" type="button" th:value="채팅방_이름바꾸기" th:onclick="updateTitle('[[${list.channelCode}]]');"></td>
+				      <td><input id="all_btn" type="button" th:value="초대하기" th:onclick="invite('[[${list.channelCode}]]');"></td>
+				      <td><input id="all_btn" type="button" th:value="X" th:onclick="deleteChannel('[[${list.channelCode}]]');"></td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+	   </th:block>
+	</th:block>
 </body>
 </html>

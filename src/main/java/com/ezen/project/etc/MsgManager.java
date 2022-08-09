@@ -30,12 +30,12 @@ public class MsgManager {
 	public boolean addMsgInfo(Message msg) {
 		msg.setWriteDate(java.sql.Date.valueOf(LocalDate.now()));
 		msg.setReaded(0);
-		msg.setNum((long) 1);
+		msg.setNum(1);
 		Object obj = this.sctx.getAttribute(key);
 		if(obj!=null) 
 		{
 			List<Message> list = (List<Message>) obj;
-			Long lastNum;
+			int lastNum;
 			if(list.size()!=0) {
 				lastNum = list.get(list.size()-1).getNum();
 				msg.setNum(lastNum+1);

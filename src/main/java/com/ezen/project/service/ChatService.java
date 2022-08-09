@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.ezen.project.Repository.ChatRepository;
 import com.ezen.project.Repository.MsgRepository;
+import com.ezen.project.etc.MsgManager;
 import com.ezen.project.model.ChatChannel;
 import com.ezen.project.model.Message;
 
@@ -23,6 +24,8 @@ public class ChatService {
 
 	@Autowired
 	private ChatRepository rps;
+	@Autowired
+	private MsgManager msgManager;
 	
 	public ChatChannel createChannel(String user,String channelTitle) {
 		ChatChannel obj = new ChatChannel();
@@ -34,14 +37,21 @@ public class ChatService {
 		return obj_2;
 	}
 	
-	public String enterChannel(String chatChannel,String adder) {
+	public String enterChannel(String chatChannel,String adder,String sender) {
 		Integer check = rps.existCheck(chatChannel,adder);
-		System.out.println("check: "+check);
 		if(check!=0) return "checkFalse";
 		ChatChannel obj = new ChatChannel();
 		obj.setUserId(adder);
 		obj.setChannelCode(chatChannel);
 		ChatChannel obj_2 = rps.save(obj);
+		
+		Message msg = new Message();
+		msg.setSender(sender);
+		msg.setReceiver(adder);
+		msg.setTitle(sender+"님으로 부터 초대되었습니다.");
+		msg.setContents(returnDate()+"에 초대 되었습니다.");
+		msgManager.addMsgInfo(msg);
+		
 		return obj_2.getChannelCode().equals(chatChannel)+"";
 	}
 	

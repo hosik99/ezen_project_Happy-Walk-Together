@@ -30,31 +30,45 @@
 					if(res=='true'){
 						alert('전송되었습니다.');
 						location.href="/msg/getMsgByReceiver";
+					}else if (res=='nllReceiver') {
+						alert('수신자를 입력해주세요.');
+					}else if (res=='nullTitle') {
+						alert('제목을 입력해주세요.');
+					}else if(res=='nullContents'){
+						alert('내용을 입력해주세요.');
 					}else{
-						alert('전송에 실패했습니다.');
+						alert('전송에 실패했습니다. 재접속 해주세요.');
 					}
 				},
 				error:function(xhr,status,err){
-					alert('전송에 실패했습니다.');
+					alert('전송에 실패했습니다. 재접속 해주세요.');
 				}
 			});
 			return false;
 		}
+		
+		$(document).ready(function() {
+		    $('#title_cnt').on('keyup', function() {
+		        if($(this).val().length > 20) {
+		        	alert('제목은 20자 이내로 작성 가능합니다.');
+		            $(this).val($(this).val().substring(0,20));
+		        }
+		    });
+		});
 	</script>
 </head>
 <body>
-<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
-
-   <th:block th:fragment="content">
-	   <div id="box">
+	<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+	   <th:block th:fragment="content">
+		   <div id="box">
 			<form id="messageinfo" action="/msg/addMsgInfo" method="post" th:object="${msg}">
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label" th:text="수신자"></label>
-				  <input type="text" class="form-control" name="receiver" th:field="*{receiver}">
+				  <input type="text" class="form-control" name="receiver" th:field="*{receiver}" placeholder="example@exam.com">
 				</div>
 				<div class="mb-3">
 				  <label for="exampleFormControlInput1" class="form-label" th:text="제목"></label>
-				  <input type="text" class="form-control" name="title" th:field="*{title}">
+				  <input type="text" id="title_cnt" class="form-control" name="title" th:field="*{title}" placeholder="20자 이내">
 				</div>
 				<div class="mb-3">
 				  <label for="exampleFormControlTextarea1" class="form-label" th:text="내용"></label>
@@ -66,10 +80,9 @@
 				</div>
 			</form>
 		</div>
-   
-   </th:block>
-   
-</th:block>
-	
+	   
+	   </th:block>
+	   
+	</th:block>
 </body>
 </html>

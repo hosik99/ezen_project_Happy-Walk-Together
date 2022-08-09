@@ -41,7 +41,7 @@ public class MessageController {
 	private HttpSession session;
 	
 	//private String id = (String)session.getAttribute("id");
-	//private String id = "aa1";
+	//private String id = "smith";
 	
 	@GetMapping("/msgForm")
 	public String msgForm(Model model)
@@ -52,15 +52,15 @@ public class MessageController {
 	
 	@PostMapping("/addMsgInfo")
 	@ResponseBody
-	public boolean addMsgInfo(Message msg)
+	public String addMsgInfo(Message msg)
 	{	
-		if(msg.getReceiver()=="" | msg.getTitle() =="" | msg.getContents()=="") {
-			return false;
-		}
+		if(msg.getReceiver()=="") return "nllReceiver";
+		if(msg.getTitle() =="") return "nullTitle";
+		if(msg.getContents()=="") return "nullContents";
 		String id = (String)session.getAttribute("memberEmail");
 		msg.setSender(id);
 		boolean addMsg = svc.addMsgInfo(msg);
-		return addMsg;
+		return addMsg+"";
 	}
 	
 	@GetMapping("/getMsgByReceiver")
