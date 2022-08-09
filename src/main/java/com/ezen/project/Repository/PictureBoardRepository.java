@@ -19,9 +19,12 @@ public interface PictureBoardRepository extends JpaRepository<PictureBoard, Long
 //    @Query("select p, pi, avg(coalesce(r.grade,0)),  count(distinct r) from PictureBoard p " +
 //            "left outer join PictureBoardImage pi on pi.board = p " +
 //            "left outer join Review  r on r.board = p group by p ")
-    @Query("select p.bno, min(p.title), pi.inum, pi.uuid, pi.imgName, pi.path, avg(coalesce(r.grade,0)),  count(distinct r) from PictureBoard p " +
-            "left outer join PictureBoardImage pi on pi.board = p " +
-            "left outer join Review  r on r.board = p group by p ")
+    @Query(value="select p.bno, min(pi.inum), avg(coalesce(r.grade,0)),  count(distinct r) " +
+    		" from PictureBoard p " +
+            " left outer join PictureBoardImage pi on pi.board = p " +
+            " left outer join Review  r on r.board = p " +
+            " group by p",
+            countQuery= "SELECT count(p) FROM PictureBoard p")
     Page<Object[]> getListPage(Pageable pageable);
 
 

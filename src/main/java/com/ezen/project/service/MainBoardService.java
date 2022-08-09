@@ -2,12 +2,11 @@ package com.ezen.project.service;
 
 import java.util.function.Function;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ezen.project.Repository.MainBoardReplyRepository;
 import com.ezen.project.Repository.MainBoardRepository;
@@ -17,7 +16,6 @@ import com.ezen.project.dto.PageRequestDTO;
 import com.ezen.project.dto.PageResultDTO;
 import com.ezen.project.model.MainBoard;
 import com.ezen.project.model.Member;
-
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -75,11 +73,11 @@ public class MainBoardService {
 		
 		Function<Object[], MainBoardDTO> fn = (en -> entityToDTO(mainBoardRepository.findById((Long)en[0]).get(), memberRepository.findByMemberEmail((String)en[2]).get(0), (Long)en[3]));
 		
-		Page<Object[]> result = mainBoardRepository.getMainBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("mainBoardNum").descending()));
-//		Page<Object[]> result = mainBoardRepository.searchPage(
-//								pageRequestDTO.getType(),
-//								pageRequestDTO.getKeyword(),
-//								pageRequestDTO.getPageable(Sort.by("mainBoardNum").descending()));
+//		Page<Object[]> result = mainBoardRepository.getMainBoardWithReplyCount(pageRequestDTO.getPageable(Sort.by("mainBoardNum").descending()));
+		Page<Object[]> result = mainBoardRepository.searchPage(
+								pageRequestDTO.getType(),
+								pageRequestDTO.getKeyword(),
+								pageRequestDTO.getPageable(Sort.by("mainBoardNum").descending()));
 		
 		return new PageResultDTO<>(result, fn);
 	}

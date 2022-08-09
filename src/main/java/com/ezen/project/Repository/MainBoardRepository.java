@@ -8,9 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ezen.project.Repository.search.SearchMainBoardRepository;
 import com.ezen.project.model.MainBoard;
 
-public interface MainBoardRepository extends JpaRepository<MainBoard, Long>{
+public interface MainBoardRepository extends JpaRepository<MainBoard, Long>, SearchMainBoardRepository {
 	
 	//한개의 로우(Object) 내에 Object[ ]로 나옴
 	//Object result = mainBoardRepository.getBoardWithAuthor(100L);

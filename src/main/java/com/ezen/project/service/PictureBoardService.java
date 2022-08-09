@@ -72,8 +72,8 @@ public class PictureBoardService {
 
 
         Function<Object[], PictureBoardDTO> fn = (arr -> entitiesToDTO(
-                (PictureBoard)arr[0] ,
-                (List<PictureBoardImage>)(Arrays.asList((PictureBoardImage)arr[1])),
+                (PictureBoard)pictureBoardRepository.findById((Long) arr[0]).get() ,
+                (List<PictureBoardImage>)(Arrays.asList((PictureBoardImage)pictureBoardImageRepository.findById((Long)arr[1]).get())),
                 (Double) arr[2],
                 (Long)arr[3])
         );
@@ -114,7 +114,7 @@ public class PictureBoardService {
 	public Long register(PictureBoardDTO pictureBoardDTO) {
 		
 		Map<String, Object> entityMap = dtoToEntity(pictureBoardDTO);
-		PictureBoard pictureBoard = (PictureBoard) entityMap.get("board");
+		PictureBoard pictureBoard = (PictureBoard) entityMap.get("pictureBoard");
 		List<PictureBoardImage> pictureBoardImageList = (List<PictureBoardImage>) entityMap.get("imgList");
 		
 		pictureBoardRepository.save(pictureBoard);
