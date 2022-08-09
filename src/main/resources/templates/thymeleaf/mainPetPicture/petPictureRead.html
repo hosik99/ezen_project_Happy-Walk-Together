@@ -69,6 +69,10 @@
         <button type="button" class="btn btn-info addReviewBtn">
             Review Register
         </button>
+        
+        <a th:href="@{/pet/pictureboard/list(page=${requestDTO.page} , type=${requestDTO.type}, keyword =${requestDTO.keyword})}">
+            <button type="button" class="btn btn-warning">List</button>
+        </a>
 
         <div class="list-group reviewList">
 
@@ -213,8 +217,8 @@
                             console.log(review);
 
                             str += '    <div class="card-body" data-reviewnum='+review.reviewnum+' data-memberId='+review.memberId+'>';
-                            str += '    <h5 class="card-title">'+review.text+' <span>'+ review.grade+'</span></h5>';
-                            str += '    <h6 class="card-subtitle mb-2 text-muted">'+review.memberName+'</h6>';
+                            str += '    <h5 class="card-title">'+review.text+' <strong><span>'+ review.grade+'</span></strong></h5>';
+                            str += '    <h6 class="card-subtitle mb-2 text-muted">'+'Member'+review.memberId+'</h6>';
                             str += '    <p class="card-text">'+ formatTime(review.regDate) +'</p>';
                             str += '    </div>';
                         });
