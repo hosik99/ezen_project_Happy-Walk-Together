@@ -32,7 +32,32 @@
 		location.href="/pet/introduce_index";
 	}
 });
-	
+	$(document).ready(function () {
+	    //alert("ready");
+	    
+	    jQuery("#birth_date").on('change',function(){
+	    	//alert("생일 입장");
+	        var dob1 = jQuery(this).val();
+	       // alert(dob1+"/"+$("#birth_date").val());
+	        
+	        var dob = new Date(dob1);
+	        var today = new Date();
+	        var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000))+1;
+	        
+	        $('#memberAge_up').val(age);
+
+	    });
+	    
+	    $('#memberPhoneNumber_up').on('input', function() {
+	        var number = $(this).val().replace(/[^\d]/g, '')
+	        if (number.length == 7) {
+	          number = number.replace(/(\d{3})(\d{4})/, "$1-$2");
+	        } else if (number.length == 11) {
+	          number = number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+	        }
+	        $(this).val(number)
+	      });
+	});
 	
 	function edit(){
 		alert("edit_form 입장");

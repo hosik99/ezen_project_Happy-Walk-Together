@@ -36,7 +36,7 @@ public class WalkTLoginService {
 	private JavaMailSender sender;
 	public boolean sendMineMessage(String delEmail, String familyPwd)
 	   {
-		System.out.println(delEmail+":이메일 입장 delEmail :"+familyPwd);
+		//System.out.println(delEmail+":이메일 입장 delEmail :"+familyPwd);
 		
 	      MimeMessage mimeMessage = sender.createMimeMessage();
 	      String content ="<h3>인증 확인 입니다.</h3>"

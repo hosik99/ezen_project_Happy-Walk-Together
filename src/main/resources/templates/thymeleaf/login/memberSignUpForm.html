@@ -4,13 +4,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" rel="stylesheet" />   
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js" rel="stylesheet" />
-
 <script src="css/style.css" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+		
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
@@ -19,10 +16,38 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-Tn2m0TIpgVyTzzvmxLNuqbSJH3JP8jm+Cy3hvHrW7ndTDcJ1w5mBiksqDBb8GpE2ksktFvDB/ykZ0mDpsZj20w==" crossorigin="anonymous" referrerpolicy="no-referrer" defer="defer"></script>
 <script class="" src="../plugin/js/datepicker-bs4.js" defer="defer"></script>
 
-
-<link rel="stylesheet"  href="css/style.css"  />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript">
+$(document).ready(function () {
+    //alert("ready");
+    
+    jQuery("#birth_date").on('change',function(){
+    	//alert("생일 입장");
+        var dob1 = jQuery(this).val();
+       // alert(dob1+"/"+$("#birth_date").val());
+        
+        var dob = new Date(dob1);
+        var today = new Date();
+        var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000))+1;
+        
+        $('#memberAge').val(age);
+
+    });
+    
+    $('#memberPhoneNumber').on('input', function() {
+        var number = $(this).val().replace(/[^\d]/g, '')
+        if (number.length == 7) {
+          number = number.replace(/(\d{3})(\d{4})/, "$1-$2");
+        } else if (number.length == 11) {
+          number = number.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3");
+        }
+        $(this).val(number)
+      });
+});
+
+
+
 function add(){
 	var formdata = $('#add_form').serialize();
 	//alert('edit 입장')
@@ -56,6 +81,8 @@ function add(){
 </script>
 </head>
 <body>
+<br/>
+
 <p/><p/><p/><p/><p/><p/><p/>
 
 <div class="body-background">
@@ -101,19 +128,20 @@ function add(){
 </div><!-- /card -->
 <br />
 </div>		
-          <div class="mt-3 px-3">
-              <input class="form-control" placeholder="Member Age"   type="text" name="memberAge" id="memberAge" required="required">
+          <div class="mt-3 px-3">핸드폰 번호(-없이 입력하세요)
+              <input class="form-control" placeholder="Member Age"   type="text" name="memberAge" id="memberAge" required="required" readonly="readonly">
           </div>
            <div class="form-group">
+            <div class="mt-3 px-3">
+              <input class="form-control" placeholder="Member Phone Number"   type="text" name="memberPhoneNumber" id="memberPhoneNumber" required="required">
+          </div>
    			 <label for="exampleFormControlSelect1">성별 :</label>
     			<select class="form-control" name="gender" id="gender">
      				 <option>남성</option>
       				 <option>여성</option>
     			</select>
  		 </div>
-          <div class="mt-3 px-3">
-              <input class="form-control" placeholder="Member Phone Number"   type="text" name="memberPhoneNumber" id="memberPhoneNumber" required="required">
-          </div>
+         
        </form>
           <div class="mt-3 d-grid px-3">
               <button class="btn btn-primary btn-block btn-signup text-uppercase" type="button" onclick="add()">
