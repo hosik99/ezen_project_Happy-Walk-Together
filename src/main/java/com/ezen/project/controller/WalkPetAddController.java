@@ -79,6 +79,7 @@ public class WalkPetAddController {
 		System.out.println(
 				pet.getPetName()+"/"+pet.getPetId()+"/"+
 				pet.getPetSize()+"/"+pet.getBreed());
+		
 		boolean update = svc.update(pet);
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("update", update);

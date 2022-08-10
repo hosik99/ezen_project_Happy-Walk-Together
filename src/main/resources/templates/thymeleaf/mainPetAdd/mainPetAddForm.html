@@ -37,11 +37,11 @@ function add(){
 	});
 	return false; //이걸 하지 않으면 저장이 두번된다. 
 	}
-function edit(){
+function edit1(){
 	alert("edit_form 입장");
-	var formdata = $('#edit_form').serialize();
+	var formdata = $('#edit_form1').serialize();
 	$.ajax({
-		url:'update_detail',
+		url:'/pet_add/update_detail',
 		method:'post',
 		cache:false,
 		data:formdata,
@@ -181,7 +181,7 @@ function updated1(petId){
         <img alt="Avatar" style="width:30%" class="w3-circle w3-margin-top"  src="../image/GettyImages-1291814647-e1654796088869.jpg" >
       </div>
 
-      <form class="w3-container" action="update_detail" method="post" id="edit_form">
+      <form class="w3-container" action="/pet_add/update_detail" method="post" id="edit_form1">
         <div class="w3-section">
           <label><b>펫 닉네임 & 성별</b></label>
           <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Pet name" name="petName" id="petName_up" required>
@@ -199,7 +199,7 @@ function updated1(petId){
           <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Remember me
         </div>
       </form>
- <button class="w3-button w3-block w3-green w3-section w3-padding" type="button" onclick="edit()">업로드 하기</button>
+ <button class="w3-button w3-block w3-green w3-section w3-padding" type="button" onclick="edit1()">업로드 하기</button>
       <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
         <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red">Cancel</button>
         <span class="w3-right w3-padding w3-hide-small"><a href="#">비밀번호를 잃어버렸습니까?</a></span>
