@@ -90,6 +90,30 @@ function deleted(petId){
 }
 
 </script>
+<script>
+function updated1(petId){
+	
+	document.getElementById('id02').style.display='block'
+	$.ajax({
+		url:'updated?petId='+petId,
+		method:'post',
+		cache:false,
+		dataType:'json',
+		success:function(res){
+			$( "#petId_up" ).val(res.petId);
+			$( "#petName_up" ).val(res.name);
+			$( "#breed_up" ).val(res.breed);
+			//document.getElementById("petName_up").innerHTML = res.name;
+			//document.getElementById("breed_up").innerHTML = res.breed;
+			//alert(res.name+"/"+res.breed+"/"+res.size);
+		},
+		error:function(xhr,status,err){
+			alert('Error:'+err);
+		}
+	});
+}
+</script>
+
    <div class="">
   <h2>펫을 추가해 보세요</h2>
   <!-- Trigger the modal with a button -->
@@ -141,7 +165,7 @@ function deleted(petId){
 <td><a  th:text="${list.petName}"></a></td>
 <td th:text="${list.breed}"></td>
 <td th:text="${list.petSize}"></td>
-<td><button  class="w3-button w3-green w3-large" th:onclick="'javascript:updated(\''+${list.petId }+'\');'">수정</button>
+<td><button  class="w3-button w3-green w3-large" th:onclick="'javascript:updated1(\''+${list.petId }+'\');'">수정</button>
 <a th:onclick="'javascript:deleted(\''+${list.petId }+'\');'"><button class="w3-button w3-red w3-large">삭제</button></a>
 </td>
 
@@ -149,11 +173,11 @@ function deleted(petId){
 </table>
  </div>
  
-  <div id="id01" class="w3-modal">
+  <div id="id02" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
       <div class="w3-center"><br>
-        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
         <img alt="Avatar" style="width:30%" class="w3-circle w3-margin-top"  src="../image/GettyImages-1291814647-e1654796088869.jpg" >
       </div>
 
@@ -186,29 +210,7 @@ function deleted(petId){
 
  
 
-<script>
-function updated(petId){
-	
-	document.getElementById('id01').style.display='block'
-	$.ajax({
-		url:'updated?petId='+petId,
-		method:'post',
-		cache:false,
-		dataType:'json',
-		success:function(res){
-			$( "#petId_up" ).val(res.petId);
-			$( "#petName_up" ).val(res.name);
-			$( "#breed_up" ).val(res.breed);
-			//document.getElementById("petName_up").innerHTML = res.name;
-			//document.getElementById("breed_up").innerHTML = res.breed;
-			//alert(res.name+"/"+res.breed+"/"+res.size);
-		},
-		error:function(xhr,status,err){
-			alert('Error:'+err);
-		}
-	});
-}
-</script>
+
 </th:block>
    
 </th:block>
