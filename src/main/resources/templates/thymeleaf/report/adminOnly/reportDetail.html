@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>신고 게시물 상세보기</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<style type="text/css">
+		#box{
+			width:90%;
+			border-radius: 5px;
+			margin: 100px auto;
+			padding: 5px;
+		}
+		body{
+			background-color: rgb(240, 235, 227);
+		}
+		#fir_table{
+			color: rgb(247, 226, 214);
+		}
+		td{
+			border: none;
+		}
+		#fir_td{
+			
+			background-color: rgb(87, 111, 114);
+		}
+		#fir_tr{
+			background-color: rgb(125, 157, 156);
+		}
+		#goList_btn{
+			color: rgb(247, 226, 214);
+			font-weight:bold;
+			background:black;
+			border: 0;
+			outline:0;
+		}
+		#fir_textarea{
+			font-size: large;
+			color: rgb(240, 235, 227);
+			border: none;
+			background: rgb(125, 157, 156);
+			width:100%;
+			border:1;
+			overflow:visible;
+			text-overflow:ellipsis;
+		}
+		#fir_img{
+			width: 300px;
+		}
+		#fir_img:hover{
+			position: absolute;
+			left: 50%;
+			transform: scale(4);
+		}
+		#fir_img_div{
+			display:inline;
+			width:100%;
+		}
+		#writer_href{
+			color:white;
+			text-decoration: underline ;
+		}
+	</style>
+</head>
+<body>
+	<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+	   <th:block th:fragment="content">
+			<div class="container-sm" id="box">
+				<table class="table" id="fir_table">
+				  <thead>
+				    <tr>
+				    </tr>
+				  </thead>
+				  <tbody>
+				    <tr id="fir_td">
+				      <td style="width: 25%" th:text="신고사유"></td>
+				      <td th:text="${report.reason}"></td>
+				      <td>
+				      	<input id="goList_btn" type="button" th:value="목록보기" th:onclick="location.href='/report/show/all/list'">
+				      </td>
+				    </tr>
+				    <tr id="fir_td">
+				      <td style="width: 25%" th:text="작성일"></td>
+				      <td th:text="${report.wdate}"></td>
+				      <td></td>
+				    </tr>
+				    <tr id="fir_td">
+				      <td style="width: 25%" th:text="작성자"></td>
+				      <td title="제보자가 쓴 신고목록 보기" id="writer_href" th:text="${report.writer}" th:onclick="location.href='/report/user/report/'+[[${report.writer}]]">
+				      </td>
+				      <td></td>
+				    </tr>
+				    <tr id="fir_td">
+				      <td style="width: 25%" th:text="신고아이디"></td>
+				      <td th:title="${report.reportId}+' 관리 창으로 이동'" id="writer_href" th:text="${report.reportId}" th:onclick="location.href='/report/user/controll/'+[[${report.reportId}]]">
+				      </td>
+				      <td></td>
+				    </tr>
+				   <tr id="fir_tr">
+				      <td colspan="3" >
+				      	<textarea id="fir_textarea" rows="20"  readonly="readonly" th:text="${report.contents}"></textarea>
+				      </td>
+				    </tr>
+				  </tbody>
+				</table>
+				<div id="fir_img_div" th:each="imgList : ${imgList}">
+					<img id="fir_img" th:src="@{/report_images/} + ${imgList}"/>	
+				</div>
+			</div>
+	   </th:block>
+	</th:block>
+</body>
+</html>

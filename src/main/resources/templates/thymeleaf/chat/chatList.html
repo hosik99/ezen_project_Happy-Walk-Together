@@ -39,6 +39,10 @@
 		function invite(channelCode){
 			var adder = prompt('초대할 아이디를 입력해주세요.');
 			if(adder==null) return false;
+			if(!adder.includes('@')){
+				alert('이메일 형식(@)이어야 합니다.');
+				return false;
+			}
 			var data = {};
 			data.adder = adder;
 			data.channelCode = channelCode;
@@ -182,7 +186,7 @@
 				  	  	
 				  	  </th>
 				      <td></td>
-				      <td colspan="2" th:text=${list.channelTitle} th:onclick="location.href='/ws/chat/'+[[${list.chatNum}]]+'/'+[[${list.channelCode}]]"></td>
+				      <td colspan="2" th:text=${list.channelTitle} th:onclick="location.href='/ws/chat/'+[[${list.chatNum}]]+'/'+[[${list.channelCode}]]+'/'+[[${list.readed}]]"></td>
 				      <td><input id="all_btn" type="button" th:value="채팅방_이름바꾸기" th:onclick="updateTitle('[[${list.channelCode}]]');"></td>
 				      <td><input id="all_btn" type="button" th:value="초대하기" th:onclick="invite('[[${list.channelCode}]]');"></td>
 				      <td><input id="all_btn" type="button" th:value="X" th:onclick="deleteChannel('[[${list.channelCode}]]');"></td>

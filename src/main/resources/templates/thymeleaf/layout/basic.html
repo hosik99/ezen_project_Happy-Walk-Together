@@ -139,8 +139,11 @@
 		    <a href="/pet/pictureboard/list" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>반려견 사진게시판</a>
 		    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bank fa-fw"></i>QR&문의 제보</a>
 		    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-history fa-fw"></i>반려견을 위한 상품 판매</a>
-		    <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>신고 제보</a><br><br>
-		  </div>
+		    <a href="/report/reportForm" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>신고 제보</a>
+		 	<span th:if="${session.memberEmail}=='admin123@admin.com'">
+		 		<a href="/report/show/all/list" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>신고 목록(어드민 전용)</a>
+		 	</span>
+		 	</div>
 		</nav>
 	
 	<!-- Update Button -->	

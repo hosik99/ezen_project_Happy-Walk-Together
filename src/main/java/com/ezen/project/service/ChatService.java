@@ -27,6 +27,7 @@ public class ChatService {
 	@Autowired
 	private MsgManager msgManager;
 	
+	
 	public ChatChannel createChannel(String user,String channelTitle) {
 		ChatChannel obj = new ChatChannel();
 		obj.setUserId(user);
@@ -40,57 +41,34 @@ public class ChatService {
 	public String enterChannel(String chatChannel,String adder,String sender) {
 		Integer check = rps.existCheck(chatChannel,adder);
 		if(check!=0) return "checkFalse";
+		
 		ChatChannel obj = new ChatChannel();
 		obj.setUserId(adder);
 		obj.setChannelCode(chatChannel);
 		ChatChannel obj_2 = rps.save(obj);
 		
-		Message msg = new Message();
-		msg.setSender(sender);
-		msg.setReceiver(adder);
-		msg.setTitle(sender+"님으로 부터 초대되었습니다.");
-		msg.setContents(returnDate()+"에 초대 되었습니다.");
+		Message msg = getPreMsg(adder,sender);
 		msgManager.addMsgInfo(msg);
 		
 		return obj_2.getChannelCode().equals(chatChannel)+"";
 	}
-	
-	private Date returnDate() {
-		return Date.valueOf(LocalDate.now());
-	}
-	private String randomCode() {
-		UUID randomUUID = UUID.randomUUID();	
-		return randomUUID.toString().replaceAll("-","");
-	}
 
 	public List<ChatChannel> findByUserId(String userId) {
 		List<ChatChannel> voList = rps.findByUserIdOrderByChatNumDesc(userId);
-		if(voList!=null) {
-//			for(int i=0;i<voList.size();i++) {
-//				ChatChannel vo = voList.get(i);
-//				if(vo.getChannelTitle()==null) vo.setChannelTitle("<새로 초대받은 채팅방 입니다.>");
-//			}
-			return voList;
-		}
+		if(voList!=null) return voList;
 		return null;
 	}
 
 	public boolean updateTitle(String userId, String reChannelCode, String updateTitle) {
-		try {
-			rps.updateTitle(userId,reChannelCode,updateTitle);
-			return true;
-		}catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+		int n =rps.updateTitle(userId,reChannelCode,updateTitle);
+		boolean updated = n>0 ?  true : false;
+		return updated;
 	}
 
 	public boolean deleteChannel(String userId, String reChannelCode) {
-		int deleted = rps.deleteChannel(userId,reChannelCode);
-		if(deleted>0) {
-			return true;
-		}
-		return false;
+		int n = rps.deleteChannel(userId,reChannelCode);
+		boolean deleted = n>0 ?  true : false;
+		return deleted;
 	}
 
 	public boolean readed(int chatNum) {
@@ -103,13 +81,21 @@ public class ChatService {
 		}
 	}
 
-//	public Map<String,List<String>> memberList(List<ChatChannel> voList) {
-//		Map<String,List<String>> memberListMap = new HashMap();
-//		for(int i=0;i<voList.size();i++) {
-//			String channelCode = voList.get(i).getChannelCode();
-//			List<String> memberList = rps.getMemberList(channelCode);
-//			memberListMap.put(channelCode, memberList);
-//		}
-//		return memberListMap;
-//	}
+	private Message getPreMsg(String adder, String sender) {
+		Message msg = new Message();
+		msg.setSender(sender);
+		msg.setReceiver(adder);
+		msg.setTitle(sender+"님으로 부터 초대되었습니다.");
+		msg.setContents(returnDate()+"에 초대 되었습니다.");
+		return msg;
+	}
+
+	private Date returnDate() {
+		return Date.valueOf(LocalDate.now());
+	}
+	
+	private String randomCode() {
+		UUID randomUUID = UUID.randomUUID();	
+		return randomUUID.toString().replaceAll("-","");
+	}
 }

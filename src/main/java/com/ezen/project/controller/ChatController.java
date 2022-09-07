@@ -30,29 +30,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RequestMapping("/ws")
 public class ChatController
 {
-	//private String uid;
-	
 	@Autowired
 	private ChatService svc;
 	@Autowired
 	private HttpSession session;
-	/*
-	@Autowired
-	public void setting(HttpSession session){
-		if(session.getAttribute("uid")!=null) {
-			uid = (String)session.getAttribute("uid");
-			System.out.println("uid: "+uid);
-		
-		}
-	}
-	*/
 	
 	//채팅방 리스트 
 	@GetMapping("/chat/list")
     public String chatList(Model model) {
-		String userId = (String)session.getAttribute("memberEmail");
-		System.out.println("userId: "+userId);
-		List<ChatChannel> voList = svc.findByUserId(userId);
+		List<ChatChannel> voList = svc.findByUserId(getMemberEmail());
 		model.addAttribute("list",voList);
 		return "thymeleaf/chat/chatList";
     }
@@ -61,17 +47,15 @@ public class ChatController
 	@PostMapping("/chat/crate/invite")
 	@ResponseBody
 	public Map<String,String> crateAndInvite(@RequestParam("adder")String adder,@RequestParam("channelTitle")String channelTitle) {
-		String userId = (String)session.getAttribute("memberEmail");	//초대한 사람
-		ChatChannel obj = svc.createChannel(userId,channelTitle);	//초대한 사람 & 제목 DB에 저장
+		ChatChannel obj = svc.createChannel(getMemberEmail(),channelTitle);
 		Map<String,String> map = new HashMap<String,String>();
 		if(obj.getChannelCode()!=null) {
-			String entered = svc.enterChannel(obj.getChannelCode(),adder,userId);	//ChannelCode에 초대받은 사람 DB에 저장
+			String entered = svc.enterChannel(obj.getChannelCode(),adder,getMemberEmail());	//ChannelCode에 초대받은 사람 DB에 저장
 			if("checkFalse".equals(entered)) {
 				map.put("entered","false");
 			}else {
 				map.put("entered",entered);
 			}
-			map.put("channelCode", obj.getChannelCode());
 		}
 		return map;
 	}
@@ -79,16 +63,17 @@ public class ChatController
 	//채팅방 만들기
 	@PostMapping("/chat/crate/channelCode")
 	public String crateChannelCode(@RequestParam("channelTitle")String channelTitle) {
-		String userId = (String)session.getAttribute("memberEmail");
-		ChatChannel obj = svc.createChannel(userId,channelTitle);
+		ChatChannel obj = svc.createChannel(getMemberEmail(),channelTitle);
 		return obj.getChannelCode()!=null ? "redirect:/ws/chat/list" : "errorPage";
 	}
 	
 	//채팅 창으로 이동
 	@Transactional
-	@GetMapping("/chat/{chatNum}/{channelCode}")
-    public String chat(@PathVariable("channelCode")String channelCode,@PathVariable("chatNum")int chatNum,Locale locale) {
-		svc.readed(chatNum);
+	@GetMapping("/chat/{chatNum}/{channelCode}/{readed}")
+    public String chat(@PathVariable("channelCode")String channelCode,@PathVariable("chatNum")int chatNum,
+    		@PathVariable("readed")int readed,Locale locale) {
+		
+		if(readed == 1) svc.readed(chatNum);
 		session.setAttribute("channelCode",channelCode);
 		return "chat/chat";
     }
@@ -97,9 +82,7 @@ public class ChatController
 	@PostMapping("/invite/channel")
 	@ResponseBody
 	public String inviteChannel(@RequestParam("adder")String adder,@RequestParam("channelCode")String channelCode){
-		String sender = (String)session.getAttribute("memberEmail");
-		String reChannelCode = channelCode.replace("\"","");
-		String added =svc.enterChannel(reChannelCode,adder,sender);
+		String added =svc.enterChannel(reChannelCode(channelCode),adder,getMemberEmail());
 		return added;
 	}
 	
@@ -109,9 +92,7 @@ public class ChatController
 	@ResponseBody
 	public String updateTitle(@RequestParam("updateTitle")String updateTitle,@RequestParam("channelCode")String channelCode)
 	{
-		String userId = (String)session.getAttribute("memberEmail");
-		String reChannelCode = channelCode.replace("\"","");
-		boolean updated = svc.updateTitle(userId,reChannelCode,updateTitle);
+		boolean updated = svc.updateTitle(getMemberEmail(),reChannelCode(channelCode),updateTitle);
 		return updated+"";
 	}
 	
@@ -121,11 +102,16 @@ public class ChatController
 	@ResponseBody
 	public String deleteChannel(@RequestParam("channelCode")String channelCode)
 	{
-		String userId = (String)session.getAttribute("memberEmail");
-		String reChannelCode = channelCode.replace("\"","");
-		boolean deleted = svc.deleteChannel(userId,reChannelCode);
+		boolean deleted = svc.deleteChannel(getMemberEmail(),reChannelCode(channelCode));
 		return deleted+"";
 	}
 	
+	public String getMemberEmail() {
+		String memberEmail = (String)session.getAttribute("memberEmail");
+		return memberEmail;
+	}
 	
+	private String reChannelCode(String channelCode) {
+		return channelCode.replace("\"","");
+	}
 }

@@ -1,5 +1,6 @@
 package com.ezen.project.etc;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MsgManager {
 	}
 	
 	public boolean addMsgInfo(Message msg) {
-		msg.setWriteDate(java.sql.Date.valueOf(LocalDate.now()));
+		msg.setWriteDate(getNowDate());
 		msg.setReaded(0);
 		msg.setNum(1);
 		Object obj = this.sctx.getAttribute(key);
@@ -48,7 +49,7 @@ public class MsgManager {
 	}
 
 	public List<Message> getMsgByReceiver(String receiver) {
-		List<Message> receivedList = new ArrayList();
+		List<Message> receivedList = new ArrayList<Message>();
 		List<Message> list = getList();
 		for(int i=0;i<list.size();i++){
 			Message msg = list.get(i);
@@ -94,4 +95,7 @@ public class MsgManager {
 		return list.size()!=originListSize;
 	}
 
+	private Date getNowDate() {
+		return java.sql.Date.valueOf(LocalDate.now());
+	}
 }

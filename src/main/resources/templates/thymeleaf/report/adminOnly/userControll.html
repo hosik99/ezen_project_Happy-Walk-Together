@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>유저 관리 창</title>
+	<style type="text/css">
+		#r_btn{
+			color:white;
+			height: 100px;
+			width: 23%;
+			margin:auto;
+			display:block;
+		}
+		#reportedCnt_1{
+			font-size: large;
+		}
+		#reportedCnt_2{
+			color:red;
+			font-size: xx-large;
+		}
+		#r_box{
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  min-height: 50vh;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+	<th:block th:replace="~{thymeleaf/layout/basic :: setContent(~{this::content} )}">
+	    <th:block th:fragment="content">
+	    <div  id="r_box">
+		    <div id="reportedCnt_1" th:text="${member}+'가 신고 당한 횟수'"></div>
+		    &nbsp;
+		    <div id="reportedCnt_2" th:text="${reportedCnt}"></div>
+		    &nbsp;
+	    </div>
+	    <div>
+			<button id="r_btn" type="button" class="btn btn-primary" th:text="경고_메시지_보내기"
+				th:onclick="location.href='/report/user/controll/msg/'+[[${member}]]"></button>
+		</div>
+		</th:block>
+	</th:block>
+</body>
+</html>
