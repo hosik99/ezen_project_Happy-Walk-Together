@@ -26,11 +26,6 @@ public class MsgService {
 	@Autowired
 	public void setSctx(ServletContext sctx){
 		sctx.setAttribute("svc", this);
-		List<Message> list = getAllMsg();
-		if(list==null) {
-			list = new ArrayList<Message>();
-		}
-		sctx.setAttribute("msgList", list);
 	}
 	
 	public boolean addMsgInfo(Message msg) {

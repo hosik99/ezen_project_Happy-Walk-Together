@@ -33,8 +33,6 @@ public class WebSocket
     
     @OnOpen
     public void handleOpen(Session session, EndpointConfig config) {
-        System.out.println("sessionMap: "+sessionMap.toString());
-        System.out.println("channelMap: "+channelMap.toString());
     	if (session != null) {
             HttpSession httpSession = (HttpSession) config.getUserProperties().get("session");
             String uid = (String) httpSession.getAttribute("memberEmail");
@@ -62,7 +60,7 @@ public class WebSocket
             map.put("from", uid);
             map.put("contents", "");
             map.put("channelCode", channelCode);
-            map.put("chanUserlist", chanUserlist);	//채널코드 안에 접속해있는 접속자 리스트
+            map.put("chanUserlist", chanUserlist);
             
             
             try {
@@ -90,23 +88,11 @@ public class WebSocket
     @OnClose
     public void handleClose(Session session) {
         if (session != null) {
-            //String sessionId = session.getId();
         	String uid = getUserBySession(session);
         	String chanCode = uidChanCode.get(uid);
         	List<String> chanUserList = channelMap.get(chanCode);
         	chanUserList.remove(uid);
         	sessionMap.remove(uid);
-        	/* 웹소켓에 접속한 모든 이용자에게 메시지 전송 */
-            //Map<String, String> map = new HashMap<>();
-            //map.put("from", uid);
-            //map.put("contents", "disconnected");
-            
-//            try {
-//				String jsStr = new ObjectMapper().writeValueAsString(map);
-//				sendMsgToChannel(jsStr);
-//			} catch (JsonProcessingException e) {
-//				e.printStackTrace();
-//			}
         }
     }
 
@@ -115,35 +101,7 @@ public class WebSocket
         t.printStackTrace();
     }
     
-    
-//    /* 웹소켓에 접속한 모든 이용자에게 메시지 전송 */
-//    private boolean sendMessageToAll(String message) {
-//        if (sessionMap == null) {
-//            return false;
-//        }
-//
-//        int sessionCount = sessionMap.size();
-//        if (sessionCount < 1) {
-//            return false;
-//        }
-//        
-//        Set<String> keys = sessionMap.keySet();
-//        Iterator<String> itr = keys.iterator();
-//        
-//        while(itr.hasNext()) {
-//        	String key = itr.next();
-//        	Session ss = sessionMap.get(key);
-//        	if (ss == null) {
-//                continue;
-//            }
-//        	if (!ss.isOpen()) {
-//                continue;
-//            }
-//        	ss.getAsyncRemote().sendText(message);
-//        }
-//        return true;
-//    }
-    
+    //그룹멤버들에게 메세지 전송
     private boolean sendMsgToChannel(String message) {
     	if (sessionMap == null) return false;
     	int sessionCount = sessionMap.size();
@@ -158,15 +116,11 @@ public class WebSocket
 			if(chanUserList==null) return false;
 			map.put("chanUserlist", chanUserList);
 			
-	        System.out.println("chanUserList: "+chanUserList.toString());
 	        for(int i=0;i<chanUserList.size();i++) {
 	        	Session ss = sessionMap.get(chanUserList.get(i));
-	        	if (ss == null) {
-	                continue;
-	            }
-	        	if (!ss.isOpen()) {
-	                continue;
-	            }
+	        	if (ss == null) continue;
+	        	if (!ss.isOpen()) continue;
+	            
 	        	String jsStr = new ObjectMapper().writeValueAsString(map);
 	        	ss.getAsyncRemote().sendText(jsStr);
 	        }

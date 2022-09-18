@@ -43,7 +43,6 @@ public class ReportController {
 	
 	@PostMapping("/sendReportInfo")
 	public String sendPostInfo(@Valid Report report,BindingResult result,HttpServletRequest request,Model model,HttpSession session,@RequestParam("files")MultipartFile[] mfiles) {
-		System.out.println(report);
 		if(result.hasErrors()) return "thymeleaf/report/reportForm";
 		report.setWriter((String)session.getAttribute("memberEmail"));
 		Long saved = svc.sendReportInfo(report);
@@ -80,7 +79,7 @@ public class ReportController {
 		if(deleted) {
 			return "redirect:/report/show/all/list";
 		}
-		return "errorPage";
+		return "thymeleaf/errorPage/error_404";
 	}
 	
 	//신고 제보자의 신고 리스트 보여주기

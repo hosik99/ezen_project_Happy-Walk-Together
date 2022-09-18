@@ -72,7 +72,7 @@ public class ChatController
 	@GetMapping("/chat/{chatNum}/{channelCode}/{readed}")
     public String chat(@PathVariable("channelCode")String channelCode,@PathVariable("chatNum")int chatNum,
     		@PathVariable("readed")int readed,Locale locale) {
-		
+
 		if(readed == 1) svc.readed(chatNum);
 		session.setAttribute("channelCode",channelCode);
 		return "chat/chat";

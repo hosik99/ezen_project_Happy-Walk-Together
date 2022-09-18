@@ -59,7 +59,7 @@ var uid = '${memberEmail}';
 
 window.onload = function()
 {
-    //host = "221.165.82.";   /* 배포시에 호스트 주소로 변경 */
+    /* 배포시에 호스트 주소로 변경 */
 	host = "localhost:58172";
     g_webSocket = new WebSocket("ws://"+host+"/websocket");
     
@@ -75,7 +75,7 @@ window.onload = function()
 		var contents = obj.contents;
 		var channelCode = obj.channelCode;
 		var chanUserlist = obj.chanUserlist;
-		
+		+
 		if(contents!=null & contents!=""){
 			if(sender==uid){
 				obj.side='right';
@@ -113,8 +113,7 @@ window.onload = function()
 	    });
 	});
 
-	function addLineToChatBox(obj) 
-	{
+	function addLineToChatBox(obj){
 		if (obj.contents == null | obj.contents.trim()=="" ) {
 	    	return false;
 	    }

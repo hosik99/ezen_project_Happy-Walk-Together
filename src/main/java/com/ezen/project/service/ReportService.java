@@ -71,7 +71,7 @@ public class ReportService {
 				
 				imageList.add(image);
 			}
-			imgRps.saveAll(imageList);	//DB에 정보 저장
+			imgRps.saveAll(imageList);
 		}catch(Exception e) {
 			return false;
 		}

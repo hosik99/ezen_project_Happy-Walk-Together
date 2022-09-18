@@ -18,11 +18,9 @@ public class MsgManager {
 	private String key = "msgList";
 	
 	@Autowired
-	public void setSctx(ServletContext sctx)
-	{
+	public void setSctx(ServletContext sctx){
 		this.sctx = sctx;
-		if(this.sctx.getAttribute(key)==null)
-		{
+		if(this.sctx.getAttribute(key)==null){
 			List<Message> list = new ArrayList<>();
 			sctx.setAttribute(key, list);
 		}
@@ -33,8 +31,7 @@ public class MsgManager {
 		msg.setReaded(0);
 		msg.setNum(1);
 		Object obj = this.sctx.getAttribute(key);
-		if(obj!=null) 
-		{
+		if(obj!=null){
 			List<Message> list = (List<Message>) obj;
 			int lastNum;
 			if(list.size()!=0) {
@@ -45,7 +42,6 @@ public class MsgManager {
 			return true;
 		}
 		return false;
-		
 	}
 
 	public List<Message> getMsgByReceiver(String receiver) {
@@ -63,8 +59,7 @@ public class MsgManager {
 
 	public List<Message> getList(){
 		Object obj = this.sctx.getAttribute(key);
-		if(obj!=null) 
-		{
+		if(obj!=null){
 			List<Message> list = (List<Message>) obj;
 			return list;
 		}

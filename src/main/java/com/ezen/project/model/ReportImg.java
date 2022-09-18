@@ -19,10 +19,10 @@ public class ReportImg {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long num;
 	
-	private String fpath;	//저장된 경로
-	private String fname;	//파일이름
+	private String fpath;	
+	private String fname;	
 	
 	private Date udate;
 	
-	private Long pnum; //부모num (게시물 번호)
+	private Long pnum; 
 }
